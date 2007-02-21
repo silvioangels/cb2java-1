@@ -1,0 +1,21 @@
+<project>
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+        <copy file="lexer.dat" todir="build/classes/net/sf/cb2xml/sablecc/lexer"/>
+        <copy file="parser.dat" todir="build/classes/net/sf/cb2xml/sablecc/parser"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/cb2java.jar" basedir="build/classes"/>
+        <zip destfile="build/jar/src.zip">
+            <fileset dir="src"/>
+            <fileset dir="test"/>
+        </zip>
+    </target>
+</project>

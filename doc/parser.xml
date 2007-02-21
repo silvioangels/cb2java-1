@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<chapter>
+
+  <title>Working with parsed Copybooks</title>
+
+  <para>The Copybook class, while primarily used to parse application 
+  data, can also be used to build generators or for any other 
+  introspective task related to the copybook.</para>
+
+  <para>The base type for the parse tree is the Element class.  There are a good number of Element
+  types, one for each unique COBOL type.  This means that while there is a separate type for Binary
+  vs. Packed types, there is no type for COMP vs. BINARY.  The different types and how they relate
+  back to the COBOL types is detailed in the JavaDocs for these classes (or will be anyway.)</para>
+
+  <para>Like the Data types, the Element types are groiped into two major types: Leaf and Group.  
+  Leaf elements are associated with values a Group types with, well, groups.  The element tree will
+  essentially mirror the Data tree except that the Element had much more information relating to the
+  actual COBOL types in the copybook definition.  The 
+</chapter>
+
