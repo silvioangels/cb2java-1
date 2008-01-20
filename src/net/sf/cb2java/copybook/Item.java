@@ -130,7 +130,7 @@ class Item
     private void createSignedSeparate()
     {
         element = new SignedSeparate(name, level, occurs, picture);
-        ((SignedSeparate) element).setPosition(signPosition);
+        ((SignedSeparate) element).setSignPosition(signPosition);
     }
     
     private void createDecimal()

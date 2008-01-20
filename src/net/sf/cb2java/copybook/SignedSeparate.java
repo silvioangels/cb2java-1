@@ -9,19 +9,9 @@ import net.sf.cb2java.copybook.data.IntegerData;
 
 public class SignedSeparate extends Numeric
 {
-    public static final Position LEADING = new Position();
-    public static final Position TRAILING = new Position();
-    
-    private Position position;
-    
     SignedSeparate(String name, int level, int occurs, String pic)
     {
         super(name, level, occurs, pic);
-    }
-     
-    void setPosition(Position position)
-    {
-        this.position = position;
     }
     
     static int getLength(String pic)
@@ -63,25 +53,15 @@ public class SignedSeparate extends Numeric
         return 0;
     }
     
-    public Position signPosition()
-    {
-        return position;
-    }
-    
-    public static class Position
-    {
-        private Position(){}
-    }
-    
     Data parse(byte[] bytes)
     {
         String s = getString(bytes);
         
         char sign;
         
-        if (signPosition() == LEADING) {
+        if (getSignPosition() == LEADING) {
             sign = s.charAt(0);
-        } else if (signPosition() == TRAILING) {
+        } else if (getSignPosition() == TRAILING) {
             sign = s.charAt(s.length() - 1);
             s = sign + s.substring(0, s.length() - 1);
         } else {
@@ -89,7 +69,7 @@ public class SignedSeparate extends Numeric
         }
         
         if (sign != '+' && sign != '-') throw new IllegalArgumentException(getName() + " is sign separate "
-            + (signPosition() == LEADING ? "leading" : "trailing") + " but no sign was found on value " + s);
+            + (getSignPosition() == LEADING ? "leading" : "trailing") + " but no sign was found on value " + s);
         
         if (sign == '+') s = s.substring(1);
 
@@ -122,7 +102,7 @@ public class SignedSeparate extends Numeric
         } else {
             BigInteger bigI = getUnscaled(data);
         
-            positive = ZERO.unscaledValue().compareTo(bigI) < 0;
+            positive = BigDecimal.ZERO.unscaledValue().compareTo(bigI) < 0;
             
             s = bigI.toString();
         }
@@ -131,9 +111,9 @@ public class SignedSeparate extends Numeric
         
         s = getValue().fillString(s, getLength() - 1, Value.LEFT);
         
-        if (position == TRAILING) {
+        if (getSignPosition() == TRAILING) {
             s += sign;
-        } else if (position == LEADING) {
+        } else if (getSignPosition() == LEADING) {
             s = sign + s;
         } else {
             throw new RuntimeException("caused only by bug");

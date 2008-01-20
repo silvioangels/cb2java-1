@@ -23,7 +23,7 @@ public abstract class Element
     /** the absolute position of the where this item starts in data */
     int position;
     /** the instance that represents the data that defines this element */
-    Copybook copybook;
+    private Copybook copybook;
     /** the default value of this element */
     Value value;
     
@@ -166,7 +166,7 @@ public abstract class Element
     public final String getString(byte[] data)
     {
         try {
-            return new String(data, copybook.getEncoding());
+            return new String(data, getCopybook().getEncoding());
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } 
@@ -181,7 +181,7 @@ public abstract class Element
     public final byte[] getBytes(String s)
     {
         try {
-            return s.getBytes(copybook.getEncoding());
+            return s.getBytes(getCopybook().getEncoding());
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -189,7 +189,17 @@ public abstract class Element
     
     public String toString() 
     {
-        return new String(copybook.values.SPACES.fill(level)) + name + ": '" 
+        return new String(getCopybook().values.SPACES.fill(level)) + name + ": '" 
             + this.getClass() + " " + getLength() + "'\n";
+    }
+
+    void setCopybook(Copybook copybook) {
+        if (copybook != null) throw new IllegalStateException("copybook alread initialized");
+        
+        this.copybook = copybook;
+    }
+
+    public Copybook getCopybook() {
+        return copybook;
     }
 }

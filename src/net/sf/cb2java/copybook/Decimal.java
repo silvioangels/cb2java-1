@@ -135,8 +135,17 @@ public class Decimal extends Numeric
     Data parse(byte[] bytes)
     {
         String input = getString(bytes).trim();
-        char c = input.charAt(0);
-        String s = (isPositive(c) ? "" : "-") + getNumber(c) + input.toString().substring(1);
+        String s;
+        
+        if (getSignPosition() == LEADING) {
+            char c = input.charAt(0); 
+            s = (isPositive(c) ? "" : "-") + getNumber(c) + input.toString().substring(1); 
+        } else {
+            int last = input.length() - 1; 
+            char c = input.charAt(last); 
+            s = (isPositive(c) ? "" : "-") + input.toString().substring(0, last-1) + getNumber(c);
+        }
+        
         BigInteger big = new BigInteger(s);
         Data data = create();
         
@@ -165,7 +174,7 @@ public class Decimal extends Numeric
         BigInteger bigI = getUnscaled(data);
         boolean positive;
         
-        if (ZERO.unscaledValue().compareTo(bigI) > 0) {
+        if (BigDecimal.ZERO.unscaledValue().compareTo(bigI) > 0) {
             bigI = bigI.abs();
             positive = false;
         } else {

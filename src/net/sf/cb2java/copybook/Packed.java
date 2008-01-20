@@ -35,7 +35,7 @@ public class Packed extends Numeric
     {
         return digits;
     }
-        
+    
     Data parse(byte[] input)
     {
 //        for (int i = 0; i < input.length; i++) {
@@ -45,7 +45,15 @@ public class Packed extends Numeric
         
 //        System.out.println();
         
-        boolean negative = signed() && (input[0] & 0x0F) == 0x0D;
+        boolean negative;
+        
+        if (getSignPosition() == LEADING) {
+            negative = signed() && (input[0] & 0x0F) == 0x0D;
+        } else {
+            byte lastByte = input[input.length -1]; 
+            negative = signed() && (lastByte & 0x0F) == 0x0D;
+        }
+        
         BigInteger bigI = BigInteger.ZERO;
         
 //        (input.length * 2)

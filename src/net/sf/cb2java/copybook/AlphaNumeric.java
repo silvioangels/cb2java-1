@@ -110,6 +110,6 @@ public class AlphaNumeric extends Leaf
 
     protected Value getValue()
     {
-        return value == null ? copybook.values.LOW_VALUES : value;
+        return value == null ? getCopybook().values.LOW_VALUES : value;
     }
 }

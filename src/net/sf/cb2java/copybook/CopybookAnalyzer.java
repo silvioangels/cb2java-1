@@ -105,8 +105,7 @@ class CopybookAnalyzer extends DepthFirstAdapter
 
     private void walkTree(Item item)
     {
-        item.getElement().copybook = (Copybook) document.getElement();
-//        element.copybook = copybook;
+        item.getElement().setCopybook((Copybook) document.getElement());
         
         for (Iterator i = item.children.iterator(); i.hasNext();) {
             Item child = (Item) i.next();
@@ -193,37 +192,6 @@ class CopybookAnalyzer extends DepthFirstAdapter
     {
 		current.minOccurs = Integer.parseInt(node.getNumber().toString().trim());
 	}
-
-	//============================= PICTURE CLAUSE ===================================
-	
-//	public void inAPictureClause(APictureClause node)
-//    {
-//		current.picture = removeChars(node.getCharacterString().toString()," ").toUpperCase();
-//		
-//        for (int i = 0; i < current.picture.length(); i++) {
-//			char c = current.picture.charAt(i);
-//			
-//            switch (Character.toUpperCase(c)) {
-//			case 'C': /* CR */ case 'D': /* DR */
-//				i++;  // skip R
-//			case 'Z': 
-//            case '9':
-//            case '0':
-//            case '+':
-//            case '-':
-//            case '*':				
-//            case '.':
-//            case 'V':
-//            case 'P':
-//            case '$':
-//                current.isNumeric = true;
-//                break;
-//			case '(':
-//				int endParenPos = current.picture.indexOf(')', i + 1);
-//				i = endParenPos;
-//			}
-//		}
-//	}
 
     public void inAPictureClause(APictureClause node)
     {
@@ -312,10 +280,6 @@ class CopybookAnalyzer extends DepthFirstAdapter
 	public void inAComp5UsagePhrase(AComp5UsagePhrase node) {
         current.usage = Usage.COMPUTATIONAL_5;
 	}
-
-//	public void inADisplayUsagePhrase(ADisplayUsagePhrase node) {
-//        throw new IllegalArgumentException("display");
-//	}
 
 	public void inADisplay1UsagePhrase(ADisplay1UsagePhrase node) {
         throw new IllegalArgumentException("display-1");

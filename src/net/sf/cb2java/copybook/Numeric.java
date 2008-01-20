@@ -13,8 +13,10 @@ import net.sf.cb2java.copybook.data.IntegerData;
  */
 public abstract class Numeric extends Leaf
 {
-    BigDecimal ZERO = new BigDecimal(0);
-    
+    public static final Position LEADING = new Position();
+    public static final Position TRAILING = new Position();
+ 
+    private Position position = getCopybook().getDefaultSignPosition();
     private final int length;
     private final int decimalPlaces;
     private final boolean signed;
@@ -35,6 +37,16 @@ public abstract class Numeric extends Leaf
         this.length = length;
         this.decimalPlaces = decimalPlaces;
         this.signed = signed;
+    }
+    
+    void setSignPosition(Position position)
+    {
+        this.position = position;
+    }
+    
+    public Position getSignPosition()
+    {
+        return position;
     }
     
     static boolean isSigned(String picture)
@@ -148,7 +160,7 @@ public abstract class Numeric extends Leaf
             bigD = (BigDecimal) data;
         }
         
-        boolean negative = ZERO.compareTo(bigD) > 0;
+        boolean negative = BigDecimal.ZERO.compareTo(bigD) > 0;
         
         if (negative && !signed()) {
             throw (IllegalArgumentException) createEx(bigD, getName() 
@@ -178,7 +190,7 @@ public abstract class Numeric extends Leaf
     
     protected Value getValue()
     {
-        return value == null ? copybook.values.ZEROS : value;
+        return value == null ? getCopybook().values.ZEROS : value;
     }
     
     protected BigInteger getUnscaled(Object data)
@@ -214,5 +226,10 @@ public abstract class Numeric extends Leaf
     {
         return new IllegalArgumentException(data + " is not valid for " + getName() + ". " + reason 
             + (cause == null ? "" : " " + cause.getMessage()));
+    }
+    
+    public static class Position
+    {
+        private Position(){}
     }
 }

@@ -22,10 +22,14 @@ public class Copybook extends Group
     public static final String DEFAULT_ENCODING;
     public static final boolean DEFAULT_LITTLE_ENDIAN;
     public static final String DEFAULT_FLOAT_CONVERSION;
+    public static final Numeric.Position DEFAULT_DEFAULT_SIGN_POSITION;
     
     private String encoding = DEFAULT_ENCODING;
     private boolean littleEndian = DEFAULT_LITTLE_ENDIAN;
     private String floatConversion = DEFAULT_FLOAT_CONVERSION;
+    private Numeric.Position defaultSignPosition = DEFAULT_DEFAULT_SIGN_POSITION;
+    
+    private static Properties props;
     
     private Map redefines = new HashMap();
     
@@ -35,37 +39,39 @@ public class Copybook extends Group
     static {
         Properties props = new Properties();
         
-        String default_encoding = System.getProperty("cb2java.encoding", System.getProperty("file.encoding"));
-        String default_little_endian = System.getProperty("cb2java.little-endian", "false");
-        String default_float_conversion = System.getProperty("cb2java.float-conversion", "net.sf.cb2java.copybook.floating.IEEE754");
-        
         try {
             props.load(ClassLoader.getSystemResourceAsStream("copybook.props"));
-            
-            try {
-                default_encoding = props.getProperty("encoding", default_encoding);
-            } catch (Exception e) {
-                // TODO logging
-            }
-            
-            try {
-                default_little_endian = props.getProperty("little-endian", default_little_endian);
-            } catch (Exception e) {
-                // TODO logging
-            }
-            
-            try {
-                default_float_conversion = props.getProperty("float-conversion", default_little_endian);
-            } catch (Exception e) {
-                // TODO logging
-            }
         } catch (Exception e) {
             // TODO logging
-        }
+        }  
         
-        DEFAULT_ENCODING = default_encoding;
-        DEFAULT_LITTLE_ENDIAN = Boolean.valueOf(default_little_endian).booleanValue();
-        DEFAULT_FLOAT_CONVERSION = default_float_conversion;
+        DEFAULT_ENCODING = getSetting("encoding", System.getProperty("file.encoding"));
+        DEFAULT_LITTLE_ENDIAN = "false".equals(getSetting("little-endian", "false"));
+        DEFAULT_FLOAT_CONVERSION = getSetting("float-conversion", 
+            "net.sf.cb2java.copybook.floating.IEEE754");
+        DEFAULT_DEFAULT_SIGN_POSITION = "trailing".equalsIgnoreCase(
+            getSetting("default-sign-position", "leading")) ? Numeric.TRAILING : Numeric.LEADING;
+    }
+    
+    private static final String getSetting(String name, String defaultValue)
+    {
+        try {
+            String value = System.getProperty("cb2java." + name, defaultValue);
+            
+            try {
+                try {
+                    value = props.getProperty("encoding", value);
+                } catch (Exception e) {
+                    // TODO logging
+                }
+            } catch (Exception e) {
+                // TODO logging
+            }
+            
+            return value;
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
     
     /**
@@ -183,6 +189,16 @@ public class Copybook extends Group
     public boolean getLittleEndian()
     {
         return littleEndian;
+    }
+    
+    public void setDefaultSignPosition(Numeric.Position position)
+    {
+        this.defaultSignPosition = position;
+    }
+    
+    public Numeric.Position getDefaultSignPosition()
+    {
+        return defaultSignPosition;
     }
     
     public void setFloatConversion(String className)
