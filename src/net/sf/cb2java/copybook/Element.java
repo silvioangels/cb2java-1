@@ -189,7 +189,7 @@ public abstract class Element
     
     public String toString() 
     {
-        return copybook.values.SPACES.fill(level) + name + ": '" 
+        return new String(copybook.values.SPACES.fill(level)) + name + ": '" 
             + this.getClass() + " " + getLength() + "'\n";
     }
 }
