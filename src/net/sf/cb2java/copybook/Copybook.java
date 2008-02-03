@@ -27,7 +27,7 @@ public class Copybook extends Group
     private String encoding = DEFAULT_ENCODING;
     private boolean littleEndian = DEFAULT_LITTLE_ENDIAN;
     private String floatConversion = DEFAULT_FLOAT_CONVERSION;
-    private Numeric.Position defaultSignPosition = DEFAULT_DEFAULT_SIGN_POSITION;
+//    private Numeric.Position defaultSignPosition = DEFAULT_DEFAULT_SIGN_POSITION;
     
     private static Properties props;
     
@@ -191,15 +191,15 @@ public class Copybook extends Group
         return littleEndian;
     }
     
-    public void setDefaultSignPosition(Numeric.Position position)
-    {
-        this.defaultSignPosition = position;
-    }
-    
-    public Numeric.Position getDefaultSignPosition()
-    {
-        return defaultSignPosition;
-    }
+//    public void setDefaultSignPosition(Numeric.Position position)
+//    {
+//        this.defaultSignPosition = position;
+//    }
+//    
+//    public Numeric.Position getDefaultSignPosition()
+//    {
+//        return defaultSignPosition;
+//    }
     
     public void setFloatConversion(String className)
     {

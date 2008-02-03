@@ -42,7 +42,7 @@ class Item
     
     boolean isAlpha;
     boolean signSeparate;
-    SignedSeparate.Position signPosition = SignedSeparate.LEADING;
+    SignedSeparate.Position signPosition = Copybook.DEFAULT_DEFAULT_SIGN_POSITION;
     
     String picture;
     Value value;
@@ -125,17 +125,19 @@ class Item
     private void createPacked()
     {
         element = new Packed(name, level, occurs, picture);
+        ((Numeric) element).setSignPosition(signPosition);
     }
     
     private void createSignedSeparate()
     {
         element = new SignedSeparate(name, level, occurs, picture);
-        ((SignedSeparate) element).setSignPosition(signPosition);
+        ((Numeric) element).setSignPosition(signPosition);
     }
     
     private void createDecimal()
     {
         element = new Decimal(name, level, occurs, picture);
+        ((Numeric) element).setSignPosition(signPosition);
     }
     
     private void createAlphaNumeric()
