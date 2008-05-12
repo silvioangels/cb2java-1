@@ -14,6 +14,11 @@ public class SignedSeparate extends Numeric
         super(name, level, occurs, pic);
     }
     
+    public SignedSeparate(int length, int decimalPlaces, boolean signed)
+    {
+        super(length, decimalPlaces, signed);
+    }
+    
     static int getLength(String pic)
     {
         int length = 0;

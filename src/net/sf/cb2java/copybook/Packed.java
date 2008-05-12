@@ -21,6 +21,13 @@ public class Packed extends Numeric
         length = getLength(digits);
     }
 
+    public Packed(int length, int decimalPlaces, boolean signed)
+    {
+        super(length, decimalPlaces, signed);
+        digits = super.getLength();
+        this.length = getLength(digits);
+    }
+    
     protected static final int getLength(int digits)
     {   
         return (digits / 2) + 1;

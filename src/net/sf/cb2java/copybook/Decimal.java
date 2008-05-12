@@ -14,19 +14,22 @@ import net.sf.cb2java.copybook.data.IntegerData;
  */
 public class Decimal extends Numeric
 {
-    
-    
     Decimal(String name, int level, int occurs, String pic)
     {
         super(name, level, occurs, pic);
     }
     
-    private char getChar(boolean positive, char first)
+    public Decimal(int length, int decimalPlaces, boolean signed)
+    {
+        super(length, decimalPlaces, signed);
+    }
+    
+    private char getChar(boolean positive, char overpunched)
     {
         if (!signed()) {
-            return first;
+            return overpunched;
         } else if (positive) {
-            switch(first) {
+            switch(overpunched) {
                 case '0': return '{';
                 case '1': return 'A';
                 case '2': return 'B';
@@ -39,7 +42,7 @@ public class Decimal extends Numeric
                 case '9': return 'I';
             }
         } else {
-            switch(first) {
+            switch(overpunched) {
                 case '9': return 'R';
                 case '8': return 'Q';
                 case '7': return 'P';
@@ -53,15 +56,15 @@ public class Decimal extends Numeric
             }
         }
         
-        throw new IllegalArgumentException("invalid number: " + first);
+        throw new IllegalArgumentException("invalid number: " + overpunched);
     }
     
-    private boolean isPositive(char first)
+    private boolean isPositive(char overpunched)
     {
         if (!signed()) {
             return true;
         } else {
-            switch(first) {
+            switch(overpunched) {
                 case '{':
                 case 'A':
                 case 'B':
@@ -88,7 +91,7 @@ public class Decimal extends Numeric
             }
         }
         
-        throw new IllegalArgumentException("invalid char: " + first);
+        throw new IllegalArgumentException("invalid char: " + overpunched);
     }
     
     private char getNumber(char first)
@@ -187,7 +190,12 @@ public class Decimal extends Numeric
         
         s = getValue().fillString(s, getLength(), Value.LEFT);
         
-        return getBytes(getChar(positive, s.charAt(0)) + s.substring(1));
+        if (getSignPosition() == LEADING) {
+            return getBytes(getChar(positive, s.charAt(0)) + s.substring(1));
+        } else {
+            int last = s.length() - 1;
+            return getBytes(s.substring(0, last) + getChar(positive, s.charAt(last)));
+        }
     }
 
     public int digits()
