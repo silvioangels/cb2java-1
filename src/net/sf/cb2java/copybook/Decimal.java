@@ -14,6 +14,8 @@ import net.sf.cb2java.copybook.data.IntegerData;
  */
 public class Decimal extends Numeric
 {
+    
+    
     Decimal(String name, int level, int occurs, String pic)
     {
         super(name, level, occurs, pic);
@@ -174,7 +176,7 @@ public class Decimal extends Numeric
         BigInteger bigI = getUnscaled(data);
         boolean positive;
         
-        if (BigDecimal.ZERO.unscaledValue().compareTo(bigI) > 0) {
+        if (ZERO.unscaledValue().compareTo(bigI) > 0) {
             bigI = bigI.abs();
             positive = false;
         } else {

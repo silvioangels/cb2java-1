@@ -13,6 +13,8 @@ import net.sf.cb2java.copybook.data.IntegerData;
  */
 public abstract class Numeric extends Leaf
 {
+    public static final BigDecimal ZERO = new BigDecimal("0");
+    
     public static final Position LEADING = new Position();
     public static final Position TRAILING = new Position();
  
@@ -160,7 +162,7 @@ public abstract class Numeric extends Leaf
             bigD = (BigDecimal) data;
         }
         
-        boolean negative = BigDecimal.ZERO.compareTo(bigD) > 0;
+        boolean negative = ZERO.compareTo(bigD) > 0;
         
         if (negative && !signed()) {
             throw (IllegalArgumentException) createEx(bigD, getName() 
