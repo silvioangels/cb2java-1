@@ -9,14 +9,24 @@ import net.sf.cb2java.copybook.data.IntegerData;
 
 public class SignedSeparate extends Numeric
 {
-    SignedSeparate(String name, int level, int occurs, String pic)
+    SignedSeparate(String name, int level, int occurs, String picture)
     {
-        super(name, level, occurs, pic);
+        super(name, level, occurs, picture);
+    }
+    
+    public SignedSeparate(String picture)
+    {
+        super("", 0, 1, picture);
     }
     
     public SignedSeparate(int length, int decimalPlaces, boolean signed)
     {
-        super(length, decimalPlaces, signed);
+        super(length, decimalPlaces, signed, null);
+    }
+    
+    public SignedSeparate(int length, int decimalPlaces, boolean signed, Position position)
+    {
+        super(length, decimalPlaces, signed, position);
     }
     
     static int getLength(String pic)
@@ -58,7 +68,7 @@ public class SignedSeparate extends Numeric
         return 0;
     }
     
-    Data parse(byte[] bytes)
+    public Data parse(byte[] bytes)
     {
         String s = getString(bytes);
         

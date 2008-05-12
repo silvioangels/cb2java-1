@@ -16,14 +16,28 @@ public class Binary extends Numeric
 {
     final int digits;
     final int length;
-    
+   
     protected Binary(String name, int level, int occurs, String picture)
     {
         super(name, level, occurs, picture);
         digits = super.getLength();
         length = getLength(digits);
     }
-
+    
+    public Binary(String picture)
+    {
+        super("", 0, 1, picture);
+        digits = super.getLength();
+        length = getLength(digits);
+    }
+    
+    public Binary(int length, int decimalPlaces, boolean signed)
+    {
+        super(length, decimalPlaces, signed, null);
+        digits = super.getLength();
+        this.length = getLength(digits);
+    }
+    
     protected static final int getLength(int digits)
     {   
         if (1 <= digits && digits <= 4) {
@@ -47,7 +61,7 @@ public class Binary extends Numeric
         return digits;
     }
         
-    Data parse(byte[] input)
+    public Data parse(byte[] input)
     {
 //        display(input);
         
@@ -116,6 +130,16 @@ public class Binary extends Numeric
             super(name, level, occurs, picture);
         }
         
+        public Native(String picture)
+        {
+            super("", 0, 1, picture);
+        }
+
+        public Native(int length, int decimalPlaces, boolean signed)
+        {
+            super(length, decimalPlaces, signed);
+        }
+        
         public byte[] toBytes(Object data)
         {
             byte[] bytes = super.toBytes(data);
@@ -123,7 +147,7 @@ public class Binary extends Numeric
             return getCopybook().getLittleEndian() ? reverse(bytes) : bytes;
         }
         
-        Data parse(byte[] input)
+        public Data parse(byte[] input)
         {
             return super.parse(getCopybook().getLittleEndian() ? reverse(input) : input);
         }

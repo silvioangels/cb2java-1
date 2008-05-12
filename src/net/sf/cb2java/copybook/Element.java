@@ -75,7 +75,7 @@ public abstract class Element
      * @param input the input data
      * @return a new empty Data instance from the data supplied
      */
-    abstract Data parse(byte[] input);
+    abstract public Data parse(byte[] input);
     
     /**
      * validates the data based on this element definition

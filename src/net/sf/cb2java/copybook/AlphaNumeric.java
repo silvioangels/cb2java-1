@@ -15,9 +15,9 @@ public class AlphaNumeric extends Leaf
 {
     private final String originalPattern;
     private final Pattern pattern;
-    private int length;
+    private final int length;
     
-    public AlphaNumeric(String name, int level, int occurs, String pattern)
+    AlphaNumeric(String name, int level, int occurs, String pattern)
     {
         super(name, level, occurs);
         
@@ -25,7 +25,21 @@ public class AlphaNumeric extends Leaf
         pattern = pattern.toUpperCase();
         
         StringBuffer buffer = new StringBuffer();
+        
+        length = parsePattern(pattern, buffer);
+        
+        this.pattern = Pattern.compile(buffer.toString());
+    }
+    
+    public AlphaNumeric(String pattern)
+    {
+        this("", 0, 1, pattern);
+    }
+    
+    private static int parsePattern(String pattern, StringBuffer buffer)
+    {
         boolean open = false;
+        int length = 0;
         
         for (int i = 0; i < pattern.length(); i++) {
             char c = pattern.charAt(i);
@@ -46,10 +60,10 @@ public class AlphaNumeric extends Leaf
         
         if (open) length++;
         
-        this.pattern = Pattern.compile(buffer.toString());
+        return length;
     }
     
-    private String forChar(char c)
+    private static String forChar(char c)
     {
         switch (c) {
         case 'A':
@@ -78,7 +92,7 @@ public class AlphaNumeric extends Leaf
         return new CharData(this);
     }
     
-    Data parse(byte[] bytes)
+    public Data parse(byte[] bytes)
     {
         CharData data = (CharData) create();
         

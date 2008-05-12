@@ -14,14 +14,24 @@ import net.sf.cb2java.copybook.data.IntegerData;
  */
 public class Decimal extends Numeric
 {
-    Decimal(String name, int level, int occurs, String pic)
+    Decimal(String name, int level, int occurs, String picture)
     {
-        super(name, level, occurs, pic);
+        super(name, level, occurs, picture);
+    }
+    
+    public Decimal(String picture)
+    {
+        super("", 0, 1, picture);
     }
     
     public Decimal(int length, int decimalPlaces, boolean signed)
     {
-        super(length, decimalPlaces, signed);
+        super(length, decimalPlaces, signed, null);
+    }
+    
+    public Decimal(int length, int decimalPlaces, boolean signed, Position position)
+    {
+        super(length, decimalPlaces, signed, position);
     }
     
     private char getChar(boolean positive, char overpunched)
@@ -137,7 +147,7 @@ public class Decimal extends Numeric
         throw new IllegalArgumentException("invalid char: " + first);
     }
     
-    Data parse(byte[] bytes)
+    public Data parse(byte[] bytes)
     {
         String input = getString(bytes).trim();
         String s;

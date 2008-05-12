@@ -21,9 +21,19 @@ public class Packed extends Numeric
         length = getLength(digits);
     }
 
+    public Packed(String picture)
+    {
+        this("", 0, 1, picture);
+    }
+    
     public Packed(int length, int decimalPlaces, boolean signed)
     {
-        super(length, decimalPlaces, signed);
+        this(length, decimalPlaces, signed, null);
+    }
+    
+    public Packed(int length, int decimalPlaces, boolean signed, Position position)
+    {
+        super(length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
     }
@@ -43,7 +53,7 @@ public class Packed extends Numeric
         return digits;
     }
     
-    Data parse(byte[] input)
+    public Data parse(byte[] input)
     {
 //        for (int i = 0; i < input.length; i++) {
 //            System.out.print(input[i]);

@@ -77,7 +77,7 @@ public class Group extends Element
         return new GroupData(this, dataChildren);
     }
     
-    Data parse(byte[] bytes)
+    public Data parse(byte[] bytes)
     {
         ArrayList dataChildren = new ArrayList();
         
