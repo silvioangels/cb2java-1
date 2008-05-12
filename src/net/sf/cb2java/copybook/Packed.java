@@ -52,14 +52,8 @@ public class Packed extends Numeric
         
 //        System.out.println();
         
-        boolean negative;
-        
-        if (getSignPosition() == LEADING) {
-            negative = signed() && (input[0] & 0x0F) == 0x0D;
-        } else {
-            byte lastByte = input[input.length -1]; 
-            negative = signed() && (lastByte & 0x0F) == 0x0D;
-        }
+        byte lastByte = input[input.length -1]; 
+        boolean negative = signed() && (lastByte & 0x0F) == 0x0D;
         
         BigInteger bigI = BigInteger.ZERO;
         
@@ -169,7 +163,9 @@ public class Packed extends Numeric
             bigI = bigI.divide(TEN);
         }
         
-        bytes[bytes.length - 1] = (byte) (bytes[bytes.length - 1] | signNibble);
+        int signByte = bytes.length - 1;
+        
+        bytes[signByte] = (byte) (bytes[signByte] | signNibble);
         
 //        for (int i = 0; i < bytes.length; i++) {
 //            System.out.print(bytes[i]);
