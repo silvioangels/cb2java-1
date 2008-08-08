@@ -1,6 +1,6 @@
 package net.sf.cb2java.copybook.data;
 
-import net.sf.cb2java.copybook.AlphaNumeric;
+import net.sf.cb2java.copybook.Characters;
 
 /**
  * Represents data for alpanumeric data types
@@ -9,10 +9,10 @@ import net.sf.cb2java.copybook.AlphaNumeric;
  */
 public class CharData extends ValueData
 {
-    final AlphaNumeric definition;
+    final Characters definition;
     String data;
     
-    public CharData(final AlphaNumeric definition)
+    public CharData(final Characters definition)
     {
         super(definition);
         this.definition = definition;
