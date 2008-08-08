@@ -2,7 +2,9 @@ package net.sf.cb2java.copybook;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -27,7 +29,6 @@ public class Copybook extends Group
     private String encoding = DEFAULT_ENCODING;
     private boolean littleEndian = DEFAULT_LITTLE_ENDIAN;
     private String floatConversion = DEFAULT_FLOAT_CONVERSION;
-//    private Numeric.Position defaultSignPosition = DEFAULT_DEFAULT_SIGN_POSITION;
     
     private static Properties props;
     
@@ -49,8 +50,8 @@ public class Copybook extends Group
         DEFAULT_LITTLE_ENDIAN = "false".equals(getSetting("little-endian", "false"));
         DEFAULT_FLOAT_CONVERSION = getSetting("float-conversion", 
             "net.sf.cb2java.copybook.floating.IEEE754");
-        DEFAULT_DEFAULT_SIGN_POSITION = "trailing".equalsIgnoreCase(
-            getSetting("default-sign-position", "leading")) ? Numeric.TRAILING : Numeric.LEADING;
+        DEFAULT_DEFAULT_SIGN_POSITION = "leading".equalsIgnoreCase(
+            getSetting("default-sign-position", "trailing")) ? Numeric.LEADING : Numeric.TRAILING;
     }
     
     private static final String getSetting(String name, String defaultValue)
@@ -118,16 +119,6 @@ public class Copybook extends Group
         return new Record(getName(), (GroupData) super.create());
     }
     
-//    private static void display(byte[] bytes)
-//    {
-//        for (int i = 0; i < bytes.length; i++) {
-//            byte b = bytes[i];
-//            String s = "0" + Integer.toHexString(0xFF & b);
-//            System.out.print(s.toUpperCase().substring(s.length() - 2));
-//            System.out.print(' ');
-//        }
-//    }
-    
     /**
      * creates a new application data element with the given data
      * 
@@ -140,24 +131,16 @@ public class Copybook extends Group
         return new Record(getName(), (GroupData) parse(data));
     }
     
-    /**
-     * creates a new application data element with the given data
-     * 
-     * @param reader the data to create the instance for
-     * @return a new application data element with the given data
-     * @throws IOException
-     */
-    public Record parseData(InputStream reader) throws IOException
+    public List parseData(InputStream stream) throws IOException
     {
-        ByteBuffer buffer = new ByteBuffer();
-        byte[] array = new byte[1024];
-        int read = 0;
+        ByteBuffer buffer = new ByteBuffer(stream);        
+        List list = new ArrayList();
         
-        while ((read = reader.read(array)) >= 0) {
-            buffer.add(array, read);
+        while (buffer.hasNext()) {
+            list.add(new Record(getName(), (GroupData) parse(buffer.getNext())));
         }
         
-        return new Record(getName(), (GroupData) parse(buffer.get()));
+        return list;
     }
     
     /**
@@ -216,18 +199,35 @@ public class Copybook extends Group
      * 
      * @author James Watson
      */
-    public static class ByteBuffer
+    public class ByteBuffer
     {
+        // TODO allow strings, length delimiting
+//        private static final char DELIMITER = '\n';
+        private int position = 0;
         private byte[] internal = new byte[1024];
         private int size = 0;
+        private final InputStream stream;
         
-        public void fill(InputStream stream) throws IOException
+        public ByteBuffer(InputStream stream) throws IOException
         {
-            byte[] array = new byte[1024];
-            int read = 0;
-            
-            while ((read = stream.read(array)) >= 0) {
-                add(array, read);
+            this.stream = stream;
+        }
+        
+        private boolean getMore()
+        {
+            try {
+                byte[] array = new byte[1024];
+                int read = 0;
+                
+                while ((read = stream.read(array)) >= 0) {
+                    add(array, read);
+                    
+                    if (read >= getLength()) return true;
+                }
+                
+                return read >= getLength();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         
@@ -237,9 +237,7 @@ public class Copybook extends Group
             
             if (space < bytes.length) {
                 byte[] temp = new byte[Math.min(internal.length * 2, internal.length + bytes.length)];
-                
                 System.arraycopy(internal, 0, temp, 0, size);
-                
                 internal = temp;
             }
             
@@ -248,13 +246,35 @@ public class Copybook extends Group
             size += length;
         }
         
-        public byte[] get()
+        public boolean hasNext()
+        {
+            if (!(position < size)) {
+                if (!getMore()) return false;
+            }
+            
+            return true;
+        }
+        
+        private int nextEnd()
+        {
+            if (!hasNext()) return -1;
+            
+            int next = position + getLength();
+            
+            return next > size ? size : next;
+        }
+        
+        public byte[] getNext()
         {
             byte[] bytes = new byte[size];
             
-            System.arraycopy(internal, 0, bytes, 0, size);
+            int end = nextEnd();
             
-//            System.out.print(size + " bytes from buffer: ");
+            System.out.println("next end: " + end);
+            System.out.println("position: " + position);
+            
+            System.arraycopy(internal, position, bytes, 0, end - position);
+            position = end;
             
             return bytes;
         }
