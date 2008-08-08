@@ -23,7 +23,7 @@ public abstract class Numeric extends Leaf
     private final int decimalPlaces;
     private final boolean signed;
     
-    Numeric(String name, int level, int occurs, final String picture)
+    protected Numeric(String name, int level, int occurs, final String picture)
     {
         super(name, level, occurs);
         
@@ -32,7 +32,7 @@ public abstract class Numeric extends Leaf
         this.signed = isSigned(picture);
     }
     
-    Numeric(String name, int level, int occurs, final int length, final int decimalPlaces, final boolean signed)
+    protected Numeric(String name, int level, int occurs, final int length, final int decimalPlaces, final boolean signed)
     {
         super(name, level, occurs);
         
@@ -57,12 +57,12 @@ public abstract class Numeric extends Leaf
         return position;
     }
     
-    static boolean isSigned(String picture)
+    public static boolean isSigned(String picture)
     {
         return picture.charAt(0) == 'S';
     }
     
-    static int getLength(String pic)
+    public static int getLength(String pic)
     {
         int length = 0;
         
@@ -82,7 +82,7 @@ public abstract class Numeric extends Leaf
         return length;
     }
     
-    static int getScale(String pic, int length)
+    public static int getScale(String pic, int length)
     {
         int position = 0;
         pic = pic.toUpperCase();
@@ -113,7 +113,7 @@ public abstract class Numeric extends Leaf
 //        return length();
 //    }
     
-    protected int getLength()
+    public int getLength()
     {
         return length;
     }
@@ -154,7 +154,6 @@ public abstract class Numeric extends Leaf
      * e.g. SignedSeparate.
      * 
      * @param data
-     * @param length
      */
     public void validate(Object data)//, int length)
     {
@@ -216,7 +215,7 @@ public abstract class Numeric extends Leaf
         }
     }
     
-    Data create()
+    protected Data create()
     {
         if (decimalPlaces() > 0) {
             return new DecimalData(this);

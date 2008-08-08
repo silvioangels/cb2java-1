@@ -43,7 +43,7 @@ public class Packed extends Numeric
         return (digits / 2) + 1;
     }
     
-    protected int getLength()
+    public int getLength()
     {
         return length;
     }

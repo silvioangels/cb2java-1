@@ -51,7 +51,7 @@ public class Binary extends Numeric
         }
     }
     
-    protected int getLength()
+    public int getLength()
     {
         return length;
     }

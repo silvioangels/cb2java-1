@@ -9,6 +9,8 @@ import net.sf.cb2java.copybook.data.IntegerData;
 
 public class SignedSeparate extends Numeric
 {
+    private static final String BUG_TEXT = "Caused only by bug. Please create bug report at cb2java at sourceforge.net";
+    
     SignedSeparate(String name, int level, int occurs, String picture)
     {
         super(name, level, occurs, picture);
@@ -29,7 +31,7 @@ public class SignedSeparate extends Numeric
         super(length, decimalPlaces, signed, position);
     }
     
-    static int getLength(String pic)
+    public static int getLength(String pic)
     {
         int length = 0;
         
@@ -47,7 +49,7 @@ public class SignedSeparate extends Numeric
         return length;
     }
     
-    static int getScale(String pic, int length)
+    public static int getScale(String pic, int length)
     {
         int position = 0;
         pic = pic.toUpperCase();
@@ -80,7 +82,7 @@ public class SignedSeparate extends Numeric
             sign = s.charAt(s.length() - 1);
             s = sign + s.substring(0, s.length() - 1);
         } else {
-            throw new RuntimeException("caused only by bug");
+            throw new RuntimeException(BUG_TEXT);
         }
         
         if (sign != '+' && sign != '-') throw new IllegalArgumentException(getName() + " is sign separate "
@@ -131,7 +133,7 @@ public class SignedSeparate extends Numeric
         } else if (getSignPosition() == LEADING) {
             s = sign + s;
         } else {
-            throw new RuntimeException("caused only by bug");
+            throw new RuntimeException(BUG_TEXT);
         }
         
         return getBytes(s);
