@@ -194,7 +194,7 @@ public abstract class Element
     }
 
     void setCopybook(Copybook copybook) {
-        if (copybook != null) throw new IllegalStateException("copybook alread initialized");
+        if (this.copybook != null) throw new IllegalStateException("copybook already initialized");
         
         this.copybook = copybook;
     }
