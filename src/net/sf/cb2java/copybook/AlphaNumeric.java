@@ -2,24 +2,21 @@ package net.sf.cb2java.copybook;
 
 import java.util.regex.Pattern;
 
-import net.sf.cb2java.copybook.data.CharData;
-import net.sf.cb2java.copybook.data.Data;
-
 /** 
  * Class used to represent alpha and alphanumeric
  * data types
  * 
  * @author James Watson
  */
-public class AlphaNumeric extends Leaf
+public class AlphaNumeric extends Characters
 {
     private final String originalPattern;
     private final Pattern pattern;
     private final int length;
     
-    AlphaNumeric(String name, int level, int occurs, String pattern)
+    public AlphaNumeric(String name, int level, int occurs, String pattern)
     {
-        super(name, level, occurs);
+        super(name, 0, level, occurs);
         
         this.originalPattern = pattern;
         pattern = pattern.toUpperCase();
@@ -34,6 +31,11 @@ public class AlphaNumeric extends Leaf
     public AlphaNumeric(String pattern)
     {
         this("", 0, 1, pattern);
+    }
+    
+    protected int getLength()
+    {
+        return length;
     }
     
     private static int parsePattern(String pattern, StringBuffer buffer)
@@ -77,29 +79,24 @@ public class AlphaNumeric extends Leaf
         }
     }
     
-    protected int getLength()
-    {
-        return length;
-    }
-    
     public Pattern getPattern()
     {
         return pattern;
     }
 
-    Data create()
-    {
-        return new CharData(this);
-    }
-    
-    public Data parse(byte[] bytes)
-    {
-        CharData data = (CharData) create();
-        
-        data.setValue(getString(bytes));
-        
-        return data;
-    }
+//    Data create()
+//    {
+//        return new CharData(this);
+//    }
+//    
+//    public Data parse(byte[] bytes)
+//    {
+//        CharData data = (CharData) create();
+//        
+//        data.setValue(getString(bytes));
+//        
+//        return data;
+//    }
     
     public void validate(Object data)
     {
@@ -107,23 +104,23 @@ public class AlphaNumeric extends Leaf
         
         String s = (String) data;
         
-        if (!pattern.matcher(getValue().fillString(s, getLength(), Value.LEFT)).matches()) {
+        if (!pattern.matcher(getValue().fillString(s, getLength(), Value.RIGHT)).matches()) {
             System.out.print(pattern.toString());
             throw new IllegalArgumentException(data + " does not match pattern '" + originalPattern
                 + "' specified for " + getName());
         }
     }
 
-    public byte[] toBytes(Object data)
-    {
-        String output = (String) data;
-        output = getValue().fillString(output == null ? "" : output, getLength(), Value.LEFT);
-        
-        return getBytes(output);
-    }
-
-    protected Value getValue()
-    {
-        return value == null ? getCopybook().values.LOW_VALUES : value;
-    }
+//    public byte[] toBytes(Object data)
+//    {
+//        String output = (String) data;
+//        output = getValue().fillString(output == null ? "" : output, getLength(), Value.RIGHT);
+//        
+//        return getBytes(output);
+//    }
+//
+//    protected Value getValue()
+//    {
+//        return value == null ? getCopybook().values.SPACES : value;
+//    }
 }
