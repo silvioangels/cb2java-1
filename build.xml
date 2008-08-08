@@ -1,17 +1,17 @@
 <project>
+    <target name="full" depends="clean,compile,jar"/>
     <target name="clean">
         <delete dir="build"/>
     </target>
-
     <target name="compile">
         <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" classpath="lib/cb2xml-parser.jar" compiler="javac1.4"/>
         <copy file="lexer.dat" todir="build/classes/net/sf/cb2xml/sablecc/lexer"/>
         <copy file="parser.dat" todir="build/classes/net/sf/cb2xml/sablecc/parser"/>
     </target>
-
     <target name="jar">
         <mkdir dir="build/jar"/>
+    	<unjar src="lib/cb2xml-parser.jar" dest="build/classes"/>
         <jar destfile="build/jar/cb2java.jar" basedir="build/classes"/>
         <zip destfile="build/jar/src.zip">
             <fileset dir="src"/>
