@@ -108,7 +108,7 @@ public class Binary extends Numeric
         
 //        display(copybook.values.LOW_VALUES.fill(bigI.toByteArray(), length(), Value.LEFT));
         
-        return getCopybook().values.LOW_VALUES.fill(bigI.toByteArray(), getLength(), Value.LEFT);
+        return getSettings().getValues().LOW_VALUES.fill(bigI.toByteArray(), getLength(), Value.LEFT);
     }
     
     public static byte[] reverse(byte[] input)
@@ -144,12 +144,12 @@ public class Binary extends Numeric
         {
             byte[] bytes = super.toBytes(data);
             
-            return getCopybook().getLittleEndian() ? reverse(bytes) : bytes;
+            return getSettings().getLittleEndian() ? reverse(bytes) : bytes;
         }
         
         public Data parse(byte[] input)
         {
-            return super.parse(getCopybook().getLittleEndian() ? reverse(input) : input);
+            return super.parse(getSettings().getLittleEndian() ? reverse(input) : input);
         }
     }
 }

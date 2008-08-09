@@ -12,24 +12,19 @@ class Item
 {
     final boolean document;
     
-    Values values;
+    final Values values;
     
     /**
      * @param analyzer
      */
-    Item(Values values, final boolean document)
+    Item(final Values values, final boolean document)
     {
         this.values = values;
         this.document = document;
     }
-    
-    Item(Values values)
-    {
-        this(values, false);
-    }
 
     String name;
-	int level;
+    int level;
     Item parent;
     int length;
     
@@ -65,8 +60,8 @@ class Item
         if (document) {
             createDocument();
             Copybook copybook = (Copybook) element;
-            values.setCopybook(copybook);
-            copybook.values = values;
+//            values.setCopybook(copybook);
+//            copybook.values = values;
         } else if (picture == null) {
             if (usage == Usage.COMPUTATIONAL_1) {
                 createSingleFloat();
@@ -104,7 +99,7 @@ class Item
     
     private void createDocument()
     {
-        element = new Copybook(name);
+        element = new Copybook(name, values);
     }
     
     private void createGroup()

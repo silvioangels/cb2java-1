@@ -58,6 +58,6 @@ public class Characters extends Leaf
 
     protected Value getValue()
     {
-        return value == null ? getCopybook().values.SPACES : value;
+        return value == null ? getSettings().getValues().SPACES : value;
     }
 }

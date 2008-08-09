@@ -19,7 +19,7 @@ import net.sf.cb2java.copybook.data.Record;
  * 
  * @author James Watson
  */
-public class Copybook extends Group
+public class Copybook extends Group implements Settings
 {
     public static final String DEFAULT_ENCODING;
     public static final boolean DEFAULT_LITTLE_ENDIAN;
@@ -34,7 +34,7 @@ public class Copybook extends Group
     
     private Map redefines = new HashMap();
     
-    protected Values values;
+    private final Values values;
     
     /* loads the default encoding for this class */
     static {
@@ -80,9 +80,17 @@ public class Copybook extends Group
      *
      * @param name the name of the copybook
      */
-    Copybook(String name)
+    Copybook(String name, Values values)
     {
         super(name, 0, 0);
+        
+        this.values = values;
+        values.setCopybook(this);
+    }
+    
+    public Values getValues()
+    {
+        return values;
     }
     
     /**

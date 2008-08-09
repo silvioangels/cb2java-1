@@ -105,7 +105,7 @@ class CopybookAnalyzer extends DepthFirstAdapter
 
     private void walkTree(Item item)
     {
-        item.getElement().setCopybook((Copybook) document.getElement());
+        item.getElement().setSettings((Copybook) document.getElement());
         
         for (Iterator i = item.children.iterator(); i.hasNext();) {
             Item child = (Item) i.next();
@@ -154,7 +154,7 @@ class CopybookAnalyzer extends DepthFirstAdapter
 	public void inAItem(AItem node)
     {
         Item prevItem = current;
-        current = new Item(values);
+        current = new Item(values, false);
         current.level = Integer.parseInt(node.getNumberNot88().toString().trim());
         current.name = node.getDataNameOrFiller().toString().trim();
         

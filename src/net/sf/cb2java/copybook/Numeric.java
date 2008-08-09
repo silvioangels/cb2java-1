@@ -197,7 +197,7 @@ public abstract class Numeric extends Leaf
     
     protected Value getValue()
     {
-        return value == null ? getCopybook().values.ZEROS : value;
+        return value == null ? getSettings().getValues().ZEROS : value;
     }
     
     protected BigInteger getUnscaled(Object data)

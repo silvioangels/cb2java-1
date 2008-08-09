@@ -22,7 +22,7 @@ public class Floating extends Leaf
         Conversion temp;
         
         try {
-            Class clazz = Class.forName(getCopybook().getFloatConversion());
+            Class clazz = Class.forName(getSettings().getFloatConversion());
             temp = (Conversion) clazz.newInstance();
         } catch (Exception e) {
             temp = new IEEE754();
@@ -46,7 +46,7 @@ public class Floating extends Leaf
 
     protected Value getValue()
     {
-        return value == null ? getCopybook().values.ZEROS : value;
+        return value == null ? getSettings().getValues().ZEROS : value;
     }
 
     protected int getLength()

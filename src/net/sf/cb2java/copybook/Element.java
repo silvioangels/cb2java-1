@@ -23,7 +23,7 @@ public abstract class Element
     /** the absolute position of the where this item starts in data */
     int position;
     /** the instance that represents the data that defines this element */
-    private Copybook copybook;
+    private Settings settings;
     /** the default value of this element */
     Value value;
     
@@ -166,7 +166,7 @@ public abstract class Element
     public final String getString(byte[] data)
     {
         try {
-            return new String(data, getCopybook().getEncoding());
+            return new String(data, getSettings().getEncoding());
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } 
@@ -181,7 +181,7 @@ public abstract class Element
     public final byte[] getBytes(String s)
     {
         try {
-            return s.getBytes(getCopybook().getEncoding());
+            return s.getBytes(getSettings().getEncoding());
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -189,17 +189,35 @@ public abstract class Element
     
     public String toString() 
     {
-        return new String(getCopybook().values.SPACES.fill(level)) + name + ": '" 
+        return new String(getSettings().getValues().SPACES.fill(level)) + name + ": '" 
             + this.getClass() + " " + getLength() + "'\n";
     }
 
-    void setCopybook(Copybook copybook) {
-        if (this.copybook != null) throw new IllegalStateException("copybook already initialized");
+    public void setSettings(Settings settings) {
+//        if (this.copybook != null) throw new IllegalStateException("copybook already initialized");
         
-        this.copybook = copybook;
+        this.settings = settings;
     }
 
-    public Copybook getCopybook() {
-        return copybook;
+    Group parent;
+    
+    public Group getParent()
+    {
+        return parent;
+    }
+    
+    void setParent(Group parent)
+    {
+        this.parent = parent;
+    }
+    
+    public Settings getSettings() {
+        if (settings != null) {
+            return settings;
+        } else if (getParent() != null) {
+            return getParent().getSettings();
+        } else {
+            return null;
+        }
     }
 }

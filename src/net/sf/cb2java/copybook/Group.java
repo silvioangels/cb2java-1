@@ -24,6 +24,7 @@ public class Group extends Element
     void addChild(Element element)
     {
         children.add(element);
+        element.setParent(this);
     }
     
     public List getChildren()
@@ -106,15 +107,6 @@ public class Group extends Element
         
         return out;
     }
-    
-//    protected void setEncoding(String encoding)
-//    {
-//        for (Iterator i = children.iterator(); i.hasNext();) {
-//            Element element = (Element) i.next();
-//            
-//            element.setEncoding(encoding);
-//        }
-//    }
     
     public byte[] toBytes(Object data)
     {

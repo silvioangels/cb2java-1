@@ -8,8 +8,22 @@ class Values
     
     Values()
     {
-        super();
+        
     }
+    
+//    Values(Copybook copybook)
+//    {
+//        super();
+//        this.copybook = copybook;
+//        
+//        try {
+//            ((StringBasedValue) SPACES).b = " ".getBytes(copybook.getEncoding())[0];
+//            ((StringBasedValue) QUOTES).b = "\"".getBytes(copybook.getEncoding())[0];
+//            ((StringBasedValue) ZEROS).b = "0".getBytes(copybook.getEncoding())[0];
+//        } catch (UnsupportedEncodingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     
     void setCopybook(Copybook copybook)
     {
