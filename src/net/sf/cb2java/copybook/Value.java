@@ -32,7 +32,7 @@ public abstract class Value
     public String fillString(String s, int length, Side side)
     {
         try {
-            return new String(fill(s.getBytes(parent.copybook.getEncoding()), length, side), parent.copybook.getEncoding());
+            return new String(fill(s.getBytes(parent.encoding), length, side), parent.encoding);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

@@ -16,7 +16,7 @@ public class Binary extends Numeric
 {
     final int digits;
     final int length;
-   
+    
     protected Binary(String name, int level, int occurs, String picture)
     {
         super(name, level, occurs, picture);

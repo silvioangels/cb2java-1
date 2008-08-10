@@ -4,34 +4,22 @@ import java.io.UnsupportedEncodingException;
 
 class Values
 {
-    Copybook copybook;
+//    Copybook copybook;
+    protected String encoding;
     
     Values()
     {
-        
+        /* */
     }
     
-//    Values(Copybook copybook)
-//    {
-//        super();
-//        this.copybook = copybook;
-//        
-//        try {
-//            ((StringBasedValue) SPACES).b = " ".getBytes(copybook.getEncoding())[0];
-//            ((StringBasedValue) QUOTES).b = "\"".getBytes(copybook.getEncoding())[0];
-//            ((StringBasedValue) ZEROS).b = "0".getBytes(copybook.getEncoding())[0];
-//        } catch (UnsupportedEncodingException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-    
-    void setCopybook(Copybook copybook)
+    void setEncoding(String encoding)
     {
-        this.copybook = copybook;
+        this.encoding = encoding;
+        
         try {
-            ((StringBasedValue) SPACES).b = " ".getBytes(copybook.getEncoding())[0];
-            ((StringBasedValue) QUOTES).b = "\"".getBytes(copybook.getEncoding())[0];
-            ((StringBasedValue) ZEROS).b = "0".getBytes(copybook.getEncoding())[0];
+            ((StringBasedValue) SPACES).bite = " ".getBytes(encoding)[0];
+            ((StringBasedValue) QUOTES).bite = "\"".getBytes(encoding)[0];
+            ((StringBasedValue) ZEROS).bite = "0".getBytes(encoding)[0];
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -49,7 +37,13 @@ class Values
 
         public byte[] get(int length)
         {
-            return copybook.getBytes(value.length() > length ? value.substring(0, length) : value);
+            String s = value.length() > length ? value.substring(0, length) : value;
+            
+            try {
+                return s.getBytes(encoding);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public byte getByte()
@@ -65,11 +59,11 @@ class Values
             super(parent);
         }
 
-        byte b;
+        byte bite;
         
         public byte getByte()
         {
-            return b;
+            return bite;
         }
     }
     

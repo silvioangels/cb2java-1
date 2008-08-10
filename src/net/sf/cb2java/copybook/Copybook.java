@@ -85,7 +85,7 @@ public class Copybook extends Group implements Settings
         super(name, 0, 0);
         
         this.values = values;
-        values.setCopybook(this);
+        values.setEncoding(encoding);
     }
     
     public Values getValues()
