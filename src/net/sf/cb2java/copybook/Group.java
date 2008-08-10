@@ -16,12 +16,12 @@ public class Group extends Element
     final List children = new ArrayList();
     private final List wrapper = Collections.unmodifiableList(children);
     
-    Group(final String name, final int level, final int occurs)
+    public Group(final String name, final int level, final int occurs)
     {
         super(name, level, occurs);
     }
-
-    void addChild(Element element)
+    
+    public void addChild(Element element)
     {
         children.add(element);
         element.setParent(this);
@@ -64,7 +64,7 @@ public class Group extends Element
         throw new IllegalArgumentException("cannot set a value to group '" + getName() + "'");
     }
     
-    Data create()
+    public Data create()
     {
         ArrayList dataChildren = new ArrayList();
         

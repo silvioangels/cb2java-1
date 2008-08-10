@@ -215,7 +215,7 @@ public abstract class Numeric extends Leaf
         }
     }
     
-    protected Data create()
+    public Data create()
     {
         if (decimalPlaces() > 0) {
             return new DecimalData(this);

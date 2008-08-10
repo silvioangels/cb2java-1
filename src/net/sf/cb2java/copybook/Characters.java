@@ -25,7 +25,7 @@ public class Characters extends Leaf
         return length;
     }
 
-    Data create()
+    public Data create()
     {
         return new CharData(this);
     }

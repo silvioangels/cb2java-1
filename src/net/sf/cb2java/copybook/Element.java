@@ -67,7 +67,7 @@ public abstract class Element
      * 
      * @return a new empty Data instance for this element
      */
-    abstract Data create();
+    public abstract Data create();
     
     /**
      * creates a new empty Data instance from the data supplied

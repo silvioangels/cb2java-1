@@ -54,7 +54,7 @@ public class Floating extends Leaf
         return precision.bytes;
     }
 
-    Data create()
+    public Data create()
     {
         return new FloatingData(this);
     }
