@@ -59,7 +59,7 @@ class Item
     {
         if (document) {
             createDocument();
-            Copybook copybook = (Copybook) element;
+//            Copybook copybook = (Copybook) element;
 //            values.setCopybook(copybook);
 //            copybook.values = values;
         } else if (picture == null) {
