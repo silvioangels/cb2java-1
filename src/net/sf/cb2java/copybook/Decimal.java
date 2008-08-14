@@ -196,16 +196,25 @@ public class Decimal extends Numeric
             positive = true;
         }
         
-        String s = bigI.toString();
-        
-        s = getValue().fillString(s, getLength(), Value.LEFT);
+        byte[] output = getValue().fill(getBytes(bigI.toString()), getLength(), Value.LEFT);
         
         if (getSignPosition() == LEADING) {
-            return getBytes(getChar(positive, s.charAt(0)) + s.substring(1));
+            output[0] = (byte) getChar(positive, (char) output[0]);
         } else {
-            int last = s.length() - 1;
-            return getBytes(s.substring(0, last) + getChar(positive, s.charAt(last)));
+            int last = output.length - 1;
+            output[last] = (byte) getChar(positive, (char) output[last]);
         }
+        
+        return output;
+        
+//        s = getValue().fillString(s, getLength(), Value.LEFT);
+//        
+//        if (getSignPosition() == LEADING) {
+//            return getBytes(getChar(positive, s.charAt(0)) + s.substring(1));
+//        } else {
+//            int last = s.length() - 1;
+//            return getBytes(s.substring(0, last) + getChar(positive, s.charAt(last)));
+//        }
     }
 
     public int digits()

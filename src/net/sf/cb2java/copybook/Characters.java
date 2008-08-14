@@ -45,15 +45,14 @@ public class Characters extends Leaf
         
         String s = data.toString();
         
-        if (s.length() <= getLength()) throw new IllegalArgumentException("string value of " + data + " is longer than " + length);
+        if (s.length() > getLength()) throw new IllegalArgumentException("string value of " + data + " is longer than " + length);
     }
 
     public byte[] toBytes(Object data)
     {
-        String output = (String) data;
-        output = getValue().fillString(output == null ? "" : output, getLength(), Value.RIGHT);
+        byte[] output = data == null ? new byte[0] : getBytes((String) data);
         
-        return getBytes(output);
+        return getValue().fill(output, getLength(), Value.RIGHT);
     }
 
     protected Value getValue()

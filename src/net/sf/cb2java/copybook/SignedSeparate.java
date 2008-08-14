@@ -126,17 +126,25 @@ public class SignedSeparate extends Numeric
         
         char sign = positive ? '+' : '-';
         
-        s = getValue().fillString(s, getLength() - 1, Value.LEFT);
+//        s = getValue().fillString(s, getLength() - 1, Value.LEFT);
+        
+        byte[] temp = getValue().fill(getBytes(s), getLength() - 1, Value.LEFT);
+        
+        byte[] output = new byte[getLength()];
         
         if (getSignPosition() == TRAILING) {
-            s += sign;
+//            s += sign;
+            System.arraycopy(temp, 0, output, 0, temp.length);
+            output[output.length - 1] = (byte) sign;
         } else if (getSignPosition() == LEADING) {
-            s = sign + s;
+//            s = sign + s;
+            System.arraycopy(temp, 0, output, 1, temp.length);
+            output[0] = (byte) sign;
         } else {
             throw new RuntimeException(BUG_TEXT);
         }
         
-        return getBytes(s);
+        return output;
     }
 
     public int digits()
