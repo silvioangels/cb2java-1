@@ -23,7 +23,7 @@ public abstract class Element
     /** the absolute position of the where this item starts in data */
     int position;
     /** the instance that represents the data that defines this element */
-    private Settings settings;
+    private Settings settings = Settings.DEFAULT;
     /** the default value of this element */
     Value value;
     

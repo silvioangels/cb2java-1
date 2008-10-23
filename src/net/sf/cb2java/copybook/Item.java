@@ -37,7 +37,7 @@ class Item
     
     boolean isAlpha;
     boolean signSeparate;
-    SignedSeparate.Position signPosition = Copybook.DEFAULT_DEFAULT_SIGN_POSITION;
+    SignedSeparate.Position signPosition = Settings.DEFAULT.getSignPosition();
     
     String picture;
     Value value;

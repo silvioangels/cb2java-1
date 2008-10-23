@@ -18,7 +18,7 @@ public abstract class Numeric extends Leaf
     public static final Position LEADING = new Position();
     public static final Position TRAILING = new Position();
  
-    private Position position = Copybook.DEFAULT_DEFAULT_SIGN_POSITION;
+    private Position position = getSettings().getSignPosition();
     private final int length;
     private final int decimalPlaces;
     private final boolean signed;

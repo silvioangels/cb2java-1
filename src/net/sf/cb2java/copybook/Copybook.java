@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
+import net.sf.cb2java.copybook.Numeric.Position;
 import net.sf.cb2java.copybook.data.GroupData;
 import net.sf.cb2java.copybook.data.Record;
 
@@ -21,59 +21,14 @@ import net.sf.cb2java.copybook.data.Record;
  */
 public class Copybook extends Group implements Settings
 {
-    public static final String DEFAULT_ENCODING;
-    public static final boolean DEFAULT_LITTLE_ENDIAN;
-    public static final String DEFAULT_FLOAT_CONVERSION;
-    public static final Numeric.Position DEFAULT_DEFAULT_SIGN_POSITION;
-    
-    private String encoding = DEFAULT_ENCODING;
-    private boolean littleEndian = DEFAULT_LITTLE_ENDIAN;
-    private String floatConversion = DEFAULT_FLOAT_CONVERSION;
-    
-    private static Properties props;
+    private String encoding = Settings.DEFAULT.getEncoding();
+    private boolean littleEndian = Settings.DEFAULT.getLittleEndian();
+    private String floatConversion = Settings.DEFAULT.getFloatConversion();
+    private Numeric.Position signPosition = Settings.DEFAULT.getSignPosition();
     
     private Map redefines = new HashMap();
     
     private final Values values;
-    
-    /* loads the default encoding for this class */
-    static {
-        Properties props = new Properties();
-        
-        try {
-            props.load(ClassLoader.getSystemResourceAsStream("copybook.props"));
-        } catch (Exception e) {
-            // TODO logging
-        }  
-        
-        DEFAULT_ENCODING = getSetting("encoding", System.getProperty("file.encoding"));
-        DEFAULT_LITTLE_ENDIAN = "false".equals(getSetting("little-endian", "false"));
-        DEFAULT_FLOAT_CONVERSION = getSetting("float-conversion", 
-            "net.sf.cb2java.copybook.floating.IEEE754");
-        DEFAULT_DEFAULT_SIGN_POSITION = "leading".equalsIgnoreCase(
-            getSetting("default-sign-position", "trailing")) ? Numeric.LEADING : Numeric.TRAILING;
-    }
-    
-    private static final String getSetting(String name, String defaultValue)
-    {
-        try {
-            String value = System.getProperty("cb2java." + name, defaultValue);
-            
-            try {
-                try {
-                    value = props.getProperty("encoding", value);
-                } catch (Exception e) {
-                    // TODO logging
-                }
-            } catch (Exception e) {
-                // TODO logging
-            }
-            
-            return value;
-        } catch (Exception e) {
-            return defaultValue;
-        }
-    }
     
     /**
      * constructor
@@ -182,16 +137,6 @@ public class Copybook extends Group implements Settings
         return littleEndian;
     }
     
-//    public void setDefaultSignPosition(Numeric.Position position)
-//    {
-//        this.defaultSignPosition = position;
-//    }
-//    
-//    public Numeric.Position getDefaultSignPosition()
-//    {
-//        return defaultSignPosition;
-//    }
-    
     public void setFloatConversion(String className)
     {
         this.floatConversion = className;
@@ -200,6 +145,16 @@ public class Copybook extends Group implements Settings
     public String getFloatConversion()
     {
         return floatConversion;
+    }
+    
+    public void getSignPosition(Position position)
+    {
+        this.signPosition = position;
+    }
+    
+    public Position getSignPosition()
+    {
+        return signPosition;
     }
     
     /**
@@ -278,8 +233,8 @@ public class Copybook extends Group implements Settings
             
             int end = nextEnd();
             
-            System.out.println("next end: " + end);
-            System.out.println("position: " + position);
+//            System.out.println("next end: " + end);
+//            System.out.println("position: " + position);
             
             System.arraycopy(internal, position, bytes, 0, end - position);
             position = end;
