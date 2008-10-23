@@ -19,19 +19,34 @@ public class Decimal extends Numeric
         super(name, level, occurs, picture);
     }
     
+    public Decimal(String name, String picture)
+    {
+        super(name, 0, 1, picture);
+    }
+    
     public Decimal(String picture)
     {
         super("", 0, 1, picture);
     }
     
+    public Decimal(String name, int length, int decimalPlaces, boolean signed)
+    {
+        super(name, length, decimalPlaces, signed, null);
+    }
+    
     public Decimal(int length, int decimalPlaces, boolean signed)
     {
-        super(length, decimalPlaces, signed, null);
+        super("", length, decimalPlaces, signed, null);
+    }
+    
+    public Decimal(String name, int length, int decimalPlaces, boolean signed, Position position)
+    {
+        super(name, length, decimalPlaces, signed, position);
     }
     
     public Decimal(int length, int decimalPlaces, boolean signed, Position position)
     {
-        super(length, decimalPlaces, signed, position);
+        super("", length, decimalPlaces, signed, position);
     }
     
     private char getChar(boolean positive, char overpunched)
@@ -154,11 +169,13 @@ public class Decimal extends Numeric
         
         if (getSignPosition() == LEADING) {
             char c = input.charAt(0); 
-            s = (isPositive(c) ? "" : "-") + getNumber(c) + input.toString().substring(1); 
+            s = (isPositive(c) ? "" : "-") + getNumber(c) 
+                + (input.length() > 1 ? input.substring(1) : ""); 
         } else {
             int last = input.length() - 1; 
             char c = input.charAt(last); 
-            s = (isPositive(c) ? "" : "-") + input.toString().substring(0, last-1) + getNumber(c);
+            s = (isPositive(c) ? "" : "-") 
+                + (input.length() > 1 ? input.substring(0, last-1) : "") + getNumber(c);
         }
         
         BigInteger big = new BigInteger(s);

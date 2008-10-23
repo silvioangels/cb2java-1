@@ -24,6 +24,13 @@ public class Binary extends Numeric
         length = getLength(digits);
     }
     
+    public Binary(String name, String picture)
+    {
+        super(name, 0, 1, picture);
+        digits = super.getLength();
+        length = getLength(digits);
+    }
+    
     public Binary(String picture)
     {
         super("", 0, 1, picture);
@@ -31,9 +38,16 @@ public class Binary extends Numeric
         length = getLength(digits);
     }
     
+    public Binary(String name, int length, int decimalPlaces, boolean signed)
+    {
+        super(name, length, decimalPlaces, signed, null);
+        digits = super.getLength();
+        this.length = getLength(digits);
+    }
+    
     public Binary(int length, int decimalPlaces, boolean signed)
     {
-        super(length, decimalPlaces, signed, null);
+        super("", length, decimalPlaces, signed, null);
         digits = super.getLength();
         this.length = getLength(digits);
     }
@@ -130,14 +144,24 @@ public class Binary extends Numeric
             super(name, level, occurs, picture);
         }
         
+        public Native(String name, String picture)
+        {
+            super(name, 0, 1, picture);
+        }
+        
         public Native(String picture)
         {
             super("", 0, 1, picture);
         }
 
+        public Native(String name, int length, int decimalPlaces, boolean signed)
+        {
+            super(name, length, decimalPlaces, signed);
+        }
+        
         public Native(int length, int decimalPlaces, boolean signed)
         {
-            super(length, decimalPlaces, signed);
+            super("", length, decimalPlaces, signed);
         }
         
         public byte[] toBytes(Object data)

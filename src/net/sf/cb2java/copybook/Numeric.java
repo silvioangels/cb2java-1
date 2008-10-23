@@ -41,11 +41,17 @@ public abstract class Numeric extends Leaf
         this.signed = signed;
     }
     
-    protected Numeric(int length, int decimalPlaces, boolean signed, Position position)
+    protected Numeric(String name, int length, int decimalPlaces, boolean signed, Position position)
     {
-        this("", 0, 1, length, decimalPlaces, signed);
+        this(name, 0, 1, length, decimalPlaces, signed);
         if (position != null) setSignPosition(position);
     }
+    
+//    protected Numeric(int length, int decimalPlaces, boolean signed, Position position)
+//    {
+//        this("", length, decimalPlaces, signed, position);
+//        if (position != null) setSignPosition(position);
+//    }
     
     void setSignPosition(Position position)
     {
