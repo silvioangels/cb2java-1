@@ -2,17 +2,17 @@ package net.sf.cb2java.copybook;
 
 import java.io.UnsupportedEncodingException;
 
-class Values
+public class Values
 {
 //    Copybook copybook;
     protected String encoding;
     
-    Values()
+    public Values()
     {
         /* */
     }
     
-    void setEncoding(String encoding)
+    public void setEncoding(String encoding)
     {
         this.encoding = encoding;
         
