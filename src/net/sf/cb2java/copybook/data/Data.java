@@ -78,7 +78,8 @@ public abstract class Data
      */
     public final void setValue(Object data)
     {
-        validate(data);
+        //TODO setting?
+//        validate(data);
         
         setValueImpl(data);
     }

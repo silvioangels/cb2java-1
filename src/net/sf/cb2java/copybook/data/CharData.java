@@ -42,7 +42,7 @@ public class CharData extends ValueData
 //        setValue(data, true);
 //    }
     
-    private void setValue(String data, boolean validate)
+    public void setValue(String data, boolean validate)
     {
         if (validate) validate(data);
         this.data = data;
