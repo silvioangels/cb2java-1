@@ -2,24 +2,46 @@ package net.sf.cb2java.copybook.data;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Collections;
+import java.util.AbstractList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.cb2java.copybook.DataHolder;
 import net.sf.cb2java.copybook.Group;
 
 public class GroupData extends Data
 {
     final Group definition;
-    final List children;
-    final List wrapper;
+    protected final List children;
+    final List wrapper = new Wrapper();
     
     public GroupData(final Group definition, final List children)
     {
         super(definition);
         this.definition = definition;
         this.children = children;
-        wrapper = Collections.unmodifiableList(children);
+//        wrapper = Collections.unmodifiableList(children);
+    }
+    
+    private class Wrapper extends AbstractList
+    {
+        private Object data;
+        
+        public Object get(int index)
+        {
+            if (data == null) {
+                DataHolder holder = (DataHolder) children.get(index);
+                
+                data = holder.evaluate();
+            }
+            
+            return data;
+        }
+
+        public int size()
+        {
+            return children.size();
+        }
     }
     
     public boolean isLeaf()
@@ -45,7 +67,7 @@ public class GroupData extends Data
      */
     public Data getChild(String name)
     {
-        for (Iterator i = children.iterator(); i.hasNext();)
+        for (Iterator i = wrapper.iterator(); i.hasNext();)
         {
             Data child = (Data) i.next();
             
@@ -66,7 +88,7 @@ public class GroupData extends Data
         
         buffer.append(getName());
         
-        for (Iterator i = children.iterator(); i.hasNext();) {
+        for (Iterator i = wrapper.iterator(); i.hasNext();) {
             buffer.append('\n');
             buffer.append(((Data) i.next()).toString(indent + INDENT));
         }
@@ -76,7 +98,7 @@ public class GroupData extends Data
     
     public void write(OutputStream stream) throws IOException
     {
-        for (Iterator i = children.iterator(); i.hasNext();) {
+        for (Iterator i = wrapper.iterator(); i.hasNext();) {
             Data child = (Data) i.next();
             child.write(stream);
         }

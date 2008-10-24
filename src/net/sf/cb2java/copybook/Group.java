@@ -78,18 +78,26 @@ public class Group extends Element
         return new GroupData(this, dataChildren);
     }
     
-    public Data parse(byte[] bytes)
+    public Data parse(final byte[] bytes)
     {
         ArrayList dataChildren = new ArrayList();
         
         int pos = 0;
         
         for (Iterator i = children.iterator(); i.hasNext();) {
-            Element element = (Element) i.next();
+            final Element element = (Element) i.next();
             for (int j = 0; j < element.getOccurs(); j++) {
-                int end = pos + element.getLength();
+                final int p = pos;
+                final int end = pos + element.getLength();
     //            System.out.println(pos + " " + end + " " + input.length());
-                dataChildren.add(element.parse(sub(bytes, pos, end)));
+//                dataChildren.add(element.parse(sub(bytes, pos, end)));
+                dataChildren.add(new DataHolder() {
+                    public Data evaluate()
+                    {
+                       return element.parse(sub(bytes, p, end));
+                    }
+                });
+                
                 pos = end;
             }
         }
