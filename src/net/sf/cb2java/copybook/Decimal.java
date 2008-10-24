@@ -90,6 +90,15 @@ public class Decimal extends Numeric
             return true;
         } else {
             switch(overpunched) {
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
                 case '{':
                 case 'A':
                 case 'B':
@@ -125,30 +134,39 @@ public class Decimal extends Numeric
             return first;
         } else {
             switch(first) {
+                case '9':
                 case 'R': 
                 case 'I': 
                     return '9';
+                case '8':
                 case 'Q':
                 case 'H': 
                     return '8';
+                case '7':
                 case 'P': 
                 case 'G': 
                     return '7';
+                case '6':
                 case 'O': 
                 case 'F': 
                     return '6';
+                case '5':
                 case 'N': 
                 case 'E': 
                     return '5';
+                case '4':
                 case 'M': 
                 case 'D': 
                     return '4';
+                case '3':
                 case 'L': 
                 case 'C': 
                     return '3';
+                case '2':
                 case 'K': 
                 case 'B': 
                     return '2';
+                case '1':
                 case 'J': 
                 case 'A': 
                     return '1';
