@@ -2,47 +2,46 @@ package net.sf.cb2java.copybook.data;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.AbstractList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.cb2java.copybook.DataHolder;
 import net.sf.cb2java.copybook.Group;
 
 public class GroupData extends Data
 {
     final Group definition;
     protected final List children;
-    final List wrapper = new Wrapper();
+    final List wrapper;// = new Wrapper();
     
     public GroupData(final Group definition, final List children)
     {
         super(definition);
         this.definition = definition;
         this.children = children;
-//        wrapper = Collections.unmodifiableList(children);
+        wrapper = Collections.unmodifiableList(children);
     }
     
-    private class Wrapper extends AbstractList
-    {
-        private Object data;
-        
-        public Object get(int index)
-        {
-            if (data == null) {
-                DataHolder holder = (DataHolder) children.get(index);
-                
-                data = holder.evaluate();
-            }
-            
-            return data;
-        }
-
-        public int size()
-        {
-            return children.size();
-        }
-    }
+//    private class Wrapper extends AbstractList
+//    {
+//        private Object data;
+//        
+//        public Object get(int index)
+//        {
+//            if (data == null) {
+//                DataHolder holder = (DataHolder) children.get(index);
+//                
+//                data = holder.evaluate();
+//            }
+//            
+//            return data;
+//        }
+//
+//        public int size()
+//        {
+//            return children.size();
+//        }
+//    }
     
     public boolean isLeaf()
     {
