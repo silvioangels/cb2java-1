@@ -1,4 +1,4 @@
-package net.sf.cb2java.copybook.data;
+package net.sf.cb2java.data;
 
 public class Record extends GroupData
 {

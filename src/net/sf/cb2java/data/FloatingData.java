@@ -1,8 +1,8 @@
-package net.sf.cb2java.copybook.data;
+package net.sf.cb2java.data;
 
 import java.math.BigDecimal;
 
-import net.sf.cb2java.copybook.Floating;
+import net.sf.cb2java.types.Floating;
 
 /**
  * Floating point representations are hardware specific

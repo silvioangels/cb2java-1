@@ -1,6 +1,6 @@
-package net.sf.cb2java.copybook.data;
+package net.sf.cb2java.data;
 
-import net.sf.cb2java.copybook.Characters;
+import net.sf.cb2java.types.Characters;
 
 /**
  * Represents data for alpanumeric data types

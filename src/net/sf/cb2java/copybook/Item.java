@@ -3,7 +3,19 @@ package net.sf.cb2java.copybook;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.cb2java.Settings;
+import net.sf.cb2java.Value;
+import net.sf.cb2java.Values;
 import net.sf.cb2java.copybook.floating.Conversion;
+import net.sf.cb2java.types.AlphaNumeric;
+import net.sf.cb2java.types.Binary;
+import net.sf.cb2java.types.Decimal;
+import net.sf.cb2java.types.Element;
+import net.sf.cb2java.types.Floating;
+import net.sf.cb2java.types.Group;
+import net.sf.cb2java.types.Numeric;
+import net.sf.cb2java.types.Packed;
+import net.sf.cb2java.types.SignedSeparate;
 
 /**
  * our internal representation of a copybook "item" node

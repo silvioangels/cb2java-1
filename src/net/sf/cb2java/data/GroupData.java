@@ -1,4 +1,4 @@
-package net.sf.cb2java.copybook.data;
+package net.sf.cb2java.data;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.cb2java.copybook.Group;
+import net.sf.cb2java.types.Group;
 
 public class GroupData extends Data
 {

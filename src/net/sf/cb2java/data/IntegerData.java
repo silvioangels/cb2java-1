@@ -1,9 +1,9 @@
-package net.sf.cb2java.copybook.data;
+package net.sf.cb2java.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import net.sf.cb2java.copybook.Numeric;
+import net.sf.cb2java.types.Numeric;
 
 /**
  * class that represents numeric data 

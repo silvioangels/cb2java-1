@@ -4,6 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import net.sf.cb2java.Values;
+import net.sf.cb2java.types.Element;
+import net.sf.cb2java.types.Group;
+import net.sf.cb2java.types.SignedSeparate;
 import net.sf.cb2xml.sablecc.analysis.DepthFirstAdapter;
 import net.sf.cb2xml.sablecc.node.ABinaryUsagePhrase;
 import net.sf.cb2xml.sablecc.node.AComp1UsagePhrase;

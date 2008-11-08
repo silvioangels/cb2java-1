@@ -7,9 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.cb2java.copybook.Numeric.Position;
-import net.sf.cb2java.copybook.data.GroupData;
-import net.sf.cb2java.copybook.data.Record;
+import net.sf.cb2java.Settings;
+import net.sf.cb2java.Values;
+import net.sf.cb2java.data.GroupData;
+import net.sf.cb2java.data.Record;
+import net.sf.cb2java.types.Element;
+import net.sf.cb2java.types.Group;
+import net.sf.cb2java.types.Numeric;
+import net.sf.cb2java.types.Numeric.Position;
 
 /**
  * Represents a copybook data definition in memory
