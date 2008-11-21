@@ -7,11 +7,11 @@ public interface Conversion
     static final Precision SINGLE = new Precision(4);
     static final Precision DOUBLE = new Precision(8);
     
-    BigDecimal fromBytes(byte[] input, Precision precision);
+    public BigDecimal fromBytes(byte[] input, Precision precision);
    
-    byte[] toBytes(BigDecimal data, Precision precision);
+    public byte[] toBytes(BigDecimal data, Precision precision);
     
-    void validate(BigDecimal data, Precision precision);
+    public void validate(BigDecimal data, Precision precision);
     
     public static class Precision
     {
