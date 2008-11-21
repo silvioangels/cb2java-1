@@ -12,7 +12,7 @@ public abstract class Value
     
     private final String encoding;
     
-    Value(String encoding)
+    public Value(String encoding)
     {
         this.encoding = encoding;
     }
