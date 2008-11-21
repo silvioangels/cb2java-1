@@ -33,7 +33,7 @@ public class Group extends Element
         return wrapper;
     }
 
-    protected int getLength()
+    public int getLength()
     {
         int length = 0;
         
@@ -88,7 +88,7 @@ public class Group extends Element
         for (Iterator i = children.iterator(); i.hasNext();) {
             final Element element = (Element) i.next();
             for (int j = 0; j < element.getOccurs(); j++) {
-                final int p = pos;
+//                final int p = pos;
                 final int end = pos + element.getLength();
     //            System.out.println(pos + " " + end + " " + input.length());
                 dataChildren.add(element.parse(sub(bytes, pos, end)));
@@ -132,7 +132,7 @@ public class Group extends Element
         throw new RuntimeException("groups cannot have a value");
     }
     
-    protected Value getValue()
+    public Value getValue()
     {
         throw new RuntimeException("groups cannot have a value");
     }

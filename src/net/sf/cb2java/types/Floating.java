@@ -11,8 +11,8 @@ import net.sf.cb2java.data.FloatingData;
 
 public class Floating extends Leaf
 {
-    final Precision precision;
-    final Conversion conversion;
+    private final Precision precision;
+    private final Conversion conversion;
     
     public Floating(String name, int level, int occurs, Precision precision)
     {
@@ -45,12 +45,12 @@ public class Floating extends Leaf
         this.conversion = conversion;
     }
 
-    protected Value getValue()
+    public Value getValue()
     {
-        return value == null ? getSettings().getValues().ZEROS : value;
+        return super.getValue() == null ? getSettings().getValues().ZEROS : super.getValue();
     }
 
-    protected int getLength()
+    public int getLength()
     {
         return precision.bytes;
     }

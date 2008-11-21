@@ -21,7 +21,7 @@ public class Characters extends Leaf
         this.length = length;
     }
     
-    protected int getLength()
+    public int getLength()
     {
         return length;
     }
@@ -56,8 +56,8 @@ public class Characters extends Leaf
         return getValue().fill(output, getLength(), Value.RIGHT);
     }
 
-    protected Value getValue()
+    public Value getValue()
     {
-        return value == null ? getSettings().getValues().SPACES : value;
+        return super.getValue() == null ? getSettings().getValues().SPACES : super.getValue();
     }
 }

@@ -36,7 +36,7 @@ public class AlphaNumeric extends Characters
         this("", 0, 1, pattern);
     }
     
-    protected int getLength()
+    public int getLength()
     {
         return length;
     }

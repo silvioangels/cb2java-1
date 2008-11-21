@@ -202,9 +202,9 @@ public abstract class Numeric extends Leaf
         }
     }
     
-    protected Value getValue()
+    public Value getValue()
     {
-        return value == null ? getSettings().getValues().ZEROS : value;
+        return super.getValue() == null ? getSettings().getValues().ZEROS : super.getValue();
     }
     
     protected BigInteger getUnscaled(Object data)

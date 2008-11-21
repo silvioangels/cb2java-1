@@ -27,7 +27,9 @@ public abstract class Element
     /** the instance that represents the data that defines this element */
     private Settings settings = Settings.DEFAULT;
     /** the default value of this element */
-    Value value;
+    private Value value;
+    /** the parent of this element */
+    private Group parent;
     
     /**
      * constructor
@@ -50,7 +52,10 @@ public abstract class Element
      * 
      * @return the value set for this element or the default
      */
-    protected abstract Value getValue();
+    public Value getValue()
+    {
+        return value;
+    }
     
     /**
      * gets the children of this element or null if there are none
@@ -64,7 +69,7 @@ public abstract class Element
      * 
      * @return the length of one instance of this element
      */
-    protected abstract int getLength();
+    public abstract int getLength();
     
     /**
      * creates a new empty Data instance for this element
@@ -79,7 +84,7 @@ public abstract class Element
      * @param input the input data
      * @return a new empty Data instance from the data supplied
      */
-    abstract public Data parse(byte[] input);
+    public abstract Data parse(byte[] input);
     
     /**
      * validates the data based on this element definition
@@ -205,14 +210,12 @@ public abstract class Element
         this.settings = settings;
     }
 
-    Group parent;
-    
     public Group getParent()
     {
         return parent;
     }
     
-    void setParent(Group parent)
+    public void setParent(Group parent)
     {
         this.parent = parent;
     }
