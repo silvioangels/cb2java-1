@@ -9,9 +9,16 @@ import net.sf.cb2java.copybook.floating.Conversion.Precision;
 import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.FloatingData;
 
+/**
+ * Class used to represent COBOL floating types
+ * 
+ * @author Matt Watson
+ */
 public class Floating extends Leaf
 {
+    /** the precision of the number */
     private final Precision precision;
+    /** the conversion object for interpreting the bytes */
     private final Conversion conversion;
     
     public Floating(String name, int level, int occurs, Precision precision)

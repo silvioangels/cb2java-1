@@ -10,7 +10,7 @@ import net.sf.cb2java.Value;
 import net.sf.cb2java.data.Data;
 
 /**
- * base class for types represented in the copybook
+ * base class for types
  * 
  * @author James Watson
  */
@@ -65,9 +65,9 @@ public abstract class Element
     public abstract List getChildren();
     
     /**
-     * returns the length of one instance of this element
+     * returns the number of bytes of one instance of this element
      * 
-     * @return the length of one instance of this element
+     * @return the number of bytes of one instance of this element
      */
     public abstract int getLength();
     
@@ -186,8 +186,8 @@ public abstract class Element
     /**
      * converts a String to a byte array based on the current encoding
      * 
-     * @param s
-     * @return
+     * @param s the string to convert
+     * @return the bytes for the string
      */
     public final byte[] getBytes(String s)
     {
@@ -198,28 +198,43 @@ public abstract class Element
         }
     }
     
-    public String toString() 
+    /**
+     * Sets the settings for the element and all child elements
+     * 
+     * @param settings the new settings
+     */
+    public void setSettings(Settings settings)
     {
-        return new String(getSettings().getValues().SPACES.fill(level)) + name + ": '" 
-            + this.getClass() + " " + getLength() + "'\n";
-    }
-
-    public void setSettings(Settings settings) {
 //        if (this.copybook != null) throw new IllegalStateException("copybook already initialized");
         
         this.settings = settings;
     }
 
+    /**
+     * returns the parent of this element
+     * 
+     * @return the parent of this element
+     */
     public Group getParent()
     {
         return parent;
     }
     
+    /**
+     * Sets the parent for this element
+     * 
+     * @param parent the parent for this element
+     */
     public void setParent(Group parent)
     {
         this.parent = parent;
     }
     
+    /**
+     * Returns the settings for this element
+     * 
+     * @return the settings for this element
+     */
     public Settings getSettings() {
         if (settings != null) {
             return settings;
@@ -228,5 +243,11 @@ public abstract class Element
         } else {
             return null;
         }
+    }
+    
+    public String toString() 
+    {
+        return new String(getSettings().getValues().SPACES.fill(level)) + name + ": '" 
+            + this.getClass() + " " + getLength() + "'\n";
     }
 }

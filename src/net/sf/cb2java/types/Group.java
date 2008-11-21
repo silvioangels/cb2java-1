@@ -10,11 +10,13 @@ import net.sf.cb2java.data.Data;
 import net.sf.cb2java.data.GroupData;
 
 /**
- * 
+ * Type used to represent an element with child elements
  */
 public class Group extends Element
 {
+    /** the list of children */
     private final List children = new ArrayList();
+    /** the wrapper list exposed through getChildren() */
     private final List wrapper = Collections.unmodifiableList(children);
     
     public Group(final String name, final int level, final int occurs)
@@ -28,6 +30,9 @@ public class Group extends Element
         element.setParent(this);
     }
     
+    /**
+     * returns an immutable list of the children in this group.
+     */
     public List getChildren()
     {
         return wrapper;
@@ -60,11 +65,6 @@ public class Group extends Element
         return buffer.toString();
     }
 
-    public void setValue(String value)
-    {
-        throw new IllegalArgumentException("cannot set a value to group '" + getName() + "'");
-    }
-    
     public Data create()
     {
         ArrayList dataChildren = new ArrayList();
@@ -106,7 +106,7 @@ public class Group extends Element
         return new GroupData(this, dataChildren);
     }
 
-    byte[] sub(byte[] in, int start, int end)
+    private byte[] sub(byte[] in, int start, int end)
     {
         byte[] out = new byte[end - start];
         

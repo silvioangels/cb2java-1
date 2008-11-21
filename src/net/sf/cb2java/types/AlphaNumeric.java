@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 import net.sf.cb2java.Value;
 
-
 /** 
  * Class used to represent alpha and alphanumeric
  * data types
@@ -13,8 +12,11 @@ import net.sf.cb2java.Value;
  */
 public class AlphaNumeric extends Characters
 {
+    /** the original pattern used for debugging */
     private final String originalPattern;
+    /** the regex pattern for validation */
     private final Pattern pattern;
+    /** the byte length of this element */
     private final int length;
     
     public AlphaNumeric(String name, int level, int occurs, String pattern)
@@ -82,24 +84,15 @@ public class AlphaNumeric extends Characters
         }
     }
     
+    /**
+     * returns the pattern used to validate the element
+     * 
+     * @return the pattern used to validate the element
+     */
     public Pattern getPattern()
     {
         return pattern;
     }
-
-//    Data create()
-//    {
-//        return new CharData(this);
-//    }
-//    
-//    public Data parse(byte[] bytes)
-//    {
-//        CharData data = (CharData) create();
-//        
-//        data.setValue(getString(bytes));
-//        
-//        return data;
-//    }
     
     public void validate(Object data)
     {
@@ -113,17 +106,4 @@ public class AlphaNumeric extends Characters
                 + "' specified for " + getName());
         }
     }
-
-//    public byte[] toBytes(Object data)
-//    {
-//        String output = (String) data;
-//        output = getValue().fillString(output == null ? "" : output, getLength(), Value.RIGHT);
-//        
-//        return getBytes(output);
-//    }
-//
-//    protected Value getValue()
-//    {
-//        return value == null ? getCopybook().values.SPACES : value;
-//    }
 }

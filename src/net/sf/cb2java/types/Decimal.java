@@ -50,12 +50,20 @@ public class Decimal extends Numeric
         super("", length, decimalPlaces, signed, position);
     }
     
-    private char getChar(boolean positive, char overpunched)
+    /**
+     * returns the character for the given char representing a digit
+     * in order to create an overpunched digit in a zoned number
+     * 
+     * @param positive whether the value is positive i.e. false is negative
+     * @param overpunch the char to overpunch
+     * @return the overpunched char
+     */
+    private char getChar(boolean positive, char overpunch)
     {
         if (!signed()) {
-            return overpunched;
+            return overpunch;
         } else if (positive) {
-            switch(overpunched) {
+            switch(overpunch) {
                 case '0': return '{';
                 case '1': return 'A';
                 case '2': return 'B';
@@ -68,7 +76,7 @@ public class Decimal extends Numeric
                 case '9': return 'I';
             }
         } else {
-            switch(overpunched) {
+            switch(overpunch) {
                 case '9': return 'R';
                 case '8': return 'Q';
                 case '7': return 'P';
@@ -82,9 +90,15 @@ public class Decimal extends Numeric
             }
         }
         
-        throw new IllegalArgumentException("invalid number: " + overpunched);
+        throw new IllegalArgumentException("invalid number: " + overpunch);
     }
     
+    /**
+     * whether the given overpunched char is positive
+     * 
+     * @param overpunched the char to check
+     * @return whether the given overpunched char is positive
+     */
     private boolean isPositive(char overpunched)
     {
         if (!signed()) {
@@ -129,12 +143,18 @@ public class Decimal extends Numeric
         throw new IllegalArgumentException("invalid char: " + overpunched);
     }
     
-    private char getNumber(char first)
+    /**
+     * The digit char for an overpunched char
+     * 
+     * @param overpunched
+     * @return the digit char
+     */
+    private char getNumber(char overpunched)
     {
         if (!signed()) {
-            return first;
+            return overpunched;
         } else {
-            switch(first) {
+            switch(overpunched) {
                 case '9':
                 case 'R': 
                 case 'I': 
@@ -178,7 +198,7 @@ public class Decimal extends Numeric
             }
         }
         
-        throw new IllegalArgumentException("invalid char: " + first);
+        throw new IllegalArgumentException("invalid char: " + overpunched);
     }
     
     public Data parse(byte[] bytes)

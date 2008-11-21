@@ -10,12 +10,13 @@ import net.sf.cb2java.data.DecimalData;
 import net.sf.cb2java.data.IntegerData;
 
 /**
- * 
+ * Base type for numeric elements
+ *
+ * @author Matt Watson
  */
 public abstract class Numeric extends Leaf
 {
     public static final BigDecimal ZERO = new BigDecimal("0");
-    
     public static final Position LEADING = new Position();
     public static final Position TRAILING = new Position();
  

@@ -126,6 +126,12 @@ public class Binary extends Numeric
         return getSettings().getValues().LOW_VALUES.fill(bigI.toByteArray(), getLength(), Value.LEFT);
     }
     
+    /**
+     * reverses the order of the provided input
+     * 
+     * @param input the bytes to reverse
+     * @return the reversed byte
+     */
     public static byte[] reverse(byte[] input)
     {
         final int length = input.length;
@@ -138,6 +144,11 @@ public class Binary extends Numeric
         return output;
     }
     
+    /**
+     * Binary extension for native types 
+     * 
+     * @author Matt Watson
+     */
     public static class Native extends Binary
     {
         public Native(String name, int level, int occurs, String picture)
