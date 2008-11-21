@@ -9,13 +9,13 @@ import net.sf.cb2java.types.Characters;
  */
 public class CharData extends ValueData
 {
-    final Characters definition;
-    String data;
+//    private final Characters definition;
+    private String data;
     
     public CharData(final Characters definition)
     {
         super(definition);
-        this.definition = definition;
+//        this.definition = definition;
     }
     
     public String getString()
@@ -53,7 +53,7 @@ public class CharData extends ValueData
         return getString();
     }
 
-    protected Object translate(String data)
+    public Object translate(String data)
     {
         return data;
     }

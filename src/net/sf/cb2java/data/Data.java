@@ -89,7 +89,7 @@ public abstract class Data
         setValue(translate(data));
     }
     
-    protected abstract Object translate(String data);
+    public abstract Object translate(String data);
     
     /**
      * called by setData after validate is called

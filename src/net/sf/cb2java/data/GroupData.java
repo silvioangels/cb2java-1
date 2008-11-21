@@ -10,9 +10,9 @@ import net.sf.cb2java.types.Group;
 
 public class GroupData extends Data
 {
-    final Group definition;
+    protected final Group definition;
     protected final List children;
-    final List wrapper;// = new Wrapper();
+    private final List wrapper;// = new Wrapper();
     
     public GroupData(final Group definition, final List children)
     {
@@ -111,7 +111,7 @@ public class GroupData extends Data
         return getChildren();
     }
 
-    protected Object translate(String data)
+    public Object translate(String data)
     {
         throw new UnsupportedOperationException("cannot convert string to group");
     }

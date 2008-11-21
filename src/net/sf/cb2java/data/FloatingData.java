@@ -22,7 +22,7 @@ import net.sf.cb2java.types.Floating;
 public class FloatingData extends ValueData
 {
     /** All floats should be representable as BigDecimals */
-    BigDecimal data;
+    private BigDecimal data;
     
     /**
      * constructor
@@ -75,7 +75,7 @@ public class FloatingData extends ValueData
     /**
      * returns the internal data as a BigDecimal
      */
-    protected float getFloat()
+    public float getFloat()
     {
         return getBigDecimal().floatValue();
     }
@@ -83,12 +83,12 @@ public class FloatingData extends ValueData
     /**
      * returns the internal data as a BigDecimal
      */
-    protected double getDouble()
+    public double getDouble()
     {
         return getBigDecimal().doubleValue();
     }
 
-    protected Object translate(String data)
+    public Object translate(String data)
     {
         return new BigDecimal(data);
     }

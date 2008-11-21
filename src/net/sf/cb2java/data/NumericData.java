@@ -7,7 +7,7 @@ import net.sf.cb2java.types.Numeric;
 
 public abstract class NumericData extends ValueData
 {
-    NumericData(final Numeric definition)
+    protected NumericData(final Numeric definition)
     {
         super(definition);
     }
@@ -17,8 +17,8 @@ public abstract class NumericData extends ValueData
         return ((Numeric) getDefinition()).getFormatObject().format(getValue());
     }
     
-    protected Object translate(String data)
+    public Object translate(String data)
     {
-            return new BigDecimal(data);
+        return new BigDecimal(data);
     }
 }

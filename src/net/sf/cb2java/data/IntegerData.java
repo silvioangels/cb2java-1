@@ -41,7 +41,7 @@ public class IntegerData extends NumericData
         setValue(temp, true);
     }
     
-    public void setValueImpl(Object data)
+    protected void setValueImpl(Object data)
     {
         setValue(((BigDecimal) data).toBigInteger(), false);
     }
@@ -51,7 +51,7 @@ public class IntegerData extends NumericData
         setValue(data, true);
     }
 
-    private void setValue(BigInteger data, boolean validate)
+    public void setValue(BigInteger data, boolean validate)
     {
         if (validate) validate(data);
         this.data = data;
