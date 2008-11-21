@@ -6,8 +6,8 @@ import net.sf.cb2java.types.Numeric;
 
 public class DecimalData extends NumericData
 {
-    int roundingMode = BigDecimal.ROUND_HALF_UP;
-    public BigDecimal data;
+    private int roundingMode = BigDecimal.ROUND_HALF_UP;
+    private BigDecimal data;
     
     public DecimalData(final Numeric definition)
     {
@@ -31,7 +31,7 @@ public class DecimalData extends NumericData
     
     public BigDecimal getBigDecimal()
     {
-        return data == null ? new BigDecimal(0) : data;
+        return data;// == null ? new BigDecimal(0) : data;
     }
     
     /**

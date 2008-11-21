@@ -186,7 +186,9 @@ public class Decimal extends Numeric
         String input = getString(bytes).trim();
         String s;
         
-        if (getSignPosition() == LEADING) {
+        if (input.length() < 1) {
+            s = null;
+        }else if (getSignPosition() == LEADING) {
             char c = input.charAt(0); 
             s = (isPositive(c) ? "" : "-") + getNumber(c) 
                 + (input.length() > 1 ? input.substring(1) : ""); 
@@ -197,12 +199,12 @@ public class Decimal extends Numeric
                 + (input.length() > 1 ? input.substring(0, last-1) : "") + getNumber(c);
         }
         
-        BigInteger big = new BigInteger(s);
+        BigInteger big = s == null ? null : new BigInteger(s);
         Data data = create();
         
         if (data instanceof DecimalData) {
             DecimalData dData = (DecimalData) data;
-            BigDecimal bigD = new BigDecimal(big, decimalPlaces());
+            BigDecimal bigD = big == null ? null : new BigDecimal(big, decimalPlaces());
             
             dData.setValue(bigD);
             
