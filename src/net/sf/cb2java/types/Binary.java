@@ -15,8 +15,8 @@ import net.sf.cb2java.data.IntegerData;
  */
 public class Binary extends Numeric
 {
-    final int digits;
-    final int length;
+    private final int digits;
+    private final int length;
     
     public Binary(String name, int level, int occurs, String picture)
     {

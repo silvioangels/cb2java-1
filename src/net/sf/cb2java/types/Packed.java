@@ -10,9 +10,9 @@ import net.sf.cb2java.data.IntegerData;
 public class Packed extends Numeric
 {
     private static final BigInteger TEN = BigInteger.valueOf(10);
-    BigInteger ZERO = BigInteger.valueOf(0);
-    final int digits;
-    final int length;
+//    BigInteger ZERO = BigInteger.valueOf(0);
+    private final int digits;
+    private final int length;
 
     public Packed(String name, int level, int occurs, String picture)
     {

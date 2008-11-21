@@ -14,7 +14,7 @@ import net.sf.cb2java.data.GroupData;
  */
 public class Group extends Element
 {
-    final List children = new ArrayList();
+    private final List children = new ArrayList();
     private final List wrapper = Collections.unmodifiableList(children);
     
     public Group(final String name, final int level, final int occurs)

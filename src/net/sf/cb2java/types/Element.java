@@ -23,7 +23,7 @@ public abstract class Element
     /** how many times the element occurs in the application data */
     private final int occurs;
     /** the absolute position of the where this item starts in data */
-    int position;
+    private int position;
     /** the instance that represents the data that defines this element */
     private Settings settings = Settings.DEFAULT;
     /** the default value of this element */
