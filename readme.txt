@@ -9,4 +9,11 @@ Version 0.3
     Added support little-endian binary (comp-5).  See copybook.setLittleEndian.
     Cleaned up method names.  Made it consistent by adding 'get' to 'getter' methods even though I kind of hate it.
     Made Data a real base class.
+
+--0.4
+    Major revisions across APIs mainly to open them up.
+    Packages split up and renamed.
+    Cleaner separation of parser and data model allowing for custom model creation e.g. parsers.
+    Significant bugs fixed especially with floating point.
+    Hopefully this is close to being a release candidate.
     
