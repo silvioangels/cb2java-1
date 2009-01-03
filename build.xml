@@ -1,5 +1,6 @@
 <project>
-    <target name="full" depends="clean,compile,jar"/>
+	<property name="version" value="0.4"/>
+    <target name="full" depends="clean,compile,release"/>
     <target name="clean">
         <delete dir="build"/>
     </target>
@@ -9,13 +10,16 @@
         <copy file="lexer.dat" todir="build/classes/net/sf/cb2xml/sablecc/lexer"/>
         <copy file="parser.dat" todir="build/classes/net/sf/cb2xml/sablecc/parser"/>
     </target>
-    <target name="jar">
-        <mkdir dir="build/jar"/>
+    <target name="release">
     	<unjar src="lib/cb2xml-parser.jar" dest="build/classes"/>
-        <jar destfile="build/jar/cb2java.jar" basedir="build/classes"/>
-        <zip destfile="build/jar/src.zip">
+        <jar destfile="build/cb2java.${version}.jar" basedir="build/classes"/>
+        <zip destfile="build/src.${version}.zip">
             <fileset dir="src"/>
             <fileset dir="test"/>
         </zip>
+    	<javadoc sourcepath="src" destdir="build/doc" breakiterator="yes" classpath="lib/cb2xml-parser.jar"/>
+    	<zip destfile="builds/cb2java.${version}.zip">
+    		<fileset dir="build" excludes="classes"/>
+    	</zip>
     </target>
 </project>
