@@ -123,9 +123,9 @@ public class Copybook extends Group implements Settings
     }
     
     /**
-     * retrieves the current encoding for the copybook
+     * retrieves the current encoding for text
      * 
-     * @return
+     * @return the encoding for text
      */
     public String getEncoding()
     {
