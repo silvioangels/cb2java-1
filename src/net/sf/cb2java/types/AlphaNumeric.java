@@ -80,7 +80,7 @@ public class AlphaNumeric extends Characters
         case '9':
             return "[0-9\u0000 ]";
         default:
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("character [" + c + "] not allowed.");
         }
     }
     
